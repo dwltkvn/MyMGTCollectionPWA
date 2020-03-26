@@ -18,6 +18,7 @@ const Layout = ({ children }) => {
       site {
         siteMetadata {
           title
+          buildDate
         }
       }
     }
@@ -55,7 +56,7 @@ const Layout = ({ children }) => {
           {children}
         </main>
         <footer>
-          {new Date().toUTCString()}, Built with
+          {data.site.siteMetadata.buildDate}, Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
