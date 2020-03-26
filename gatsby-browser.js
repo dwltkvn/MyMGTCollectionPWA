@@ -5,3 +5,10 @@
  */
 
 // You can delete this file if you're not using it
+export const onClientEntry = () => {
+  window.global_updateAvailable = false
+}
+
+export const onServiceWorkerUpdateFound = ({ serviceWorker }) => {
+  window.global_updateAvailable = true
+}

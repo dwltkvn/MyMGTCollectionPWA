@@ -14,6 +14,7 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
+import Snackbar from "@material-ui/core/Snackbar"
 
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
 
@@ -52,12 +53,14 @@ class IndexPage extends React.Component {
     this.containsText = this.containsText.bind(this)
     this.handleBeforeInstallPrompt = this.handleBeforeInstallPrompt.bind(this)
     this.handleAppInstallation = this.handleAppInstallation.bind(this)
+    this.checkForUpdate = this.checkForUpdate.bind(this)
     this.data = props.data
     this.deferredPrompt = null
     this.state = {
       stateSearchResult: [],
       stateMounted: false,
       stateDisplayInstallBtn: false,
+      stateUpdateAvailable: false,
     }
   }
 
@@ -67,6 +70,7 @@ class IndexPage extends React.Component {
       "beforeinstallprompt",
       this.handleBeforeInstallPrompt
     )
+    this.checkForUpdate()
   }
 
   componentWillUnmount() {
@@ -91,6 +95,13 @@ class IndexPage extends React.Component {
       }
       this.deferredPrompt = null
     })
+  }
+
+  checkForUpdate() {
+    //console.log("check for update")
+    const stateUpdateAvailable = window.global_updateAvailable
+    this.setState({ stateUpdateAvailable })
+    if (!stateUpdateAvailable) setTimeout(this.checkForUpdate, 1000)
   }
 
   containsText() {
@@ -141,6 +152,18 @@ class IndexPage extends React.Component {
     return (
       <Layout>
         <SEO title="Home" />
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={this.state.stateUpdateAvailable}
+          autoHideDuration={6000}
+          onClose={() => this.setState({ stateUpdateAvailable: false })}
+          message="Update Available"
+        />
+
         <Fade
           direction="up"
           in={this.state.stateMounted}
