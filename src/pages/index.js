@@ -16,7 +16,7 @@ import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
 import Snackbar from "@material-ui/core/Snackbar"
 
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
+import AddIcon from "@material-ui/icons/Add"
 
 const styles = {
   mainLayout: {
@@ -151,7 +151,7 @@ class IndexPage extends React.Component {
 
     return (
       <Layout>
-        <SEO title="Home" />
+        <SEO title="Search" />
 
         <Snackbar
           anchorOrigin={{
@@ -184,7 +184,7 @@ class IndexPage extends React.Component {
                     aria-label="install"
                     onClick={() => this.handleAppInstallation()}
                   >
-                    <AddShoppingCartIcon />
+                    <AddIcon />
                   </IconButton>
                 ) : null}
               </div>
