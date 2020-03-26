@@ -29,8 +29,8 @@ module.exports = {
         name: `My MTG Collection`,
         short_name: `MMTGC`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#000000`,
+        theme_color: `#000000`,
         display: `standalone`,
         icon: `src/images/dimir-icon.png`, // This path is relative to the root of the site.
       },

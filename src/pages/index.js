@@ -70,6 +70,9 @@ class IndexPage extends React.Component {
       "beforeinstallprompt",
       this.handleBeforeInstallPrompt
     )
+    window.addEventListener("appinstalled", e =>
+      this.setState({ stateDisplayInstallBtn: false })
+    )
     this.checkForUpdate()
   }
 
@@ -79,6 +82,7 @@ class IndexPage extends React.Component {
       "beforeinstallprompt",
       this.handleBeforeInstallPrompt
     )
+    window.removeEventListener("appinstalled")
   }
 
   handleBeforeInstallPrompt(e) {
