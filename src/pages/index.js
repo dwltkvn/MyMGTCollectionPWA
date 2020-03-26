@@ -8,11 +8,14 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
+import IconButton from "@material-ui/core/IconButton"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
+
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
 
 const styles = {
   mainLayout: {
@@ -47,30 +50,50 @@ class IndexPage extends React.Component {
     // this.handeEvent = this.handleEvent.bind(this);
     this.searchCard = this.searchCard.bind(this)
     this.containsText = this.containsText.bind(this)
+    this.handleBeforeInstallPrompt = this.handleBeforeInstallPrompt.bind(this)
     this.data = props.data
+    this.deferredPrompt = undefined
     this.state = {
       stateSearchResult: [],
       stateMounted: false,
+      stateDisplayInstallBtn: false,
     }
   }
 
   componentDidMount() {
     this.setState({ stateMounted: true })
+    window.addEventListener(
+      "beforeinstallprompt",
+      this.handleBeforeInstallPrompt
+    )
   }
 
   componentWillUnmount() {
     //window.removeEventListener("event",this.handleEvent);
+    window.removeEventListener(
+      "beforeinstallprompt",
+      this.handleBeforeInstallPrompt
+    )
+  }
+
+  handleBeforeInstallPrompt(e) {
+    e.preventDefault()
+    this.deferredPrompt = e
+    this.setState({ stateDisplayInstallBtn: true })
   }
 
   containsText() {
     const v = this.refUserInput.value
+    if (v === "") return
+    if (v.length < 3) return
+
     let result = []
     //console.log(v)
     const keys = Object.keys(this.data.allDataJson.nodes[0].lists)
     //console.log(keys)
     keys.forEach(key => {
       this.data.allDataJson.nodes[0].lists[key].forEach(card => {
-        if (v !== "" && card.toLowerCase().includes(v.toLowerCase())) {
+        if (card.toLowerCase().includes(v.toLowerCase())) {
           //console.log(key + " " + card)
           let r = { cardname: card, listname: key }
           result.push(r)
@@ -123,6 +146,11 @@ class IndexPage extends React.Component {
                 />
               </div>
               <div style={classes.buttons}>
+                {this.state.stateDisplayInstallBtn ? (
+                  <IconButton color="primary" aria-label="add to shopping cart">
+                    <AddShoppingCartIcon />
+                  </IconButton>
+                ) : null}
                 <Button
                   variant="contained"
                   color="primary"
