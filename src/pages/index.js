@@ -24,7 +24,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     flex: 1,
-    "min-height": "0",
+    minHeight: "0",
     height: "0",
   },
   cardList: {
@@ -51,8 +51,9 @@ class IndexPage extends React.Component {
     this.searchCard = this.searchCard.bind(this)
     this.containsText = this.containsText.bind(this)
     this.handleBeforeInstallPrompt = this.handleBeforeInstallPrompt.bind(this)
+    this.handleAppInstallation = this.handleAppInstallation.bind(this)
     this.data = props.data
-    this.deferredPrompt = undefined
+    this.deferredPrompt = null
     this.state = {
       stateSearchResult: [],
       stateMounted: false,
@@ -80,6 +81,16 @@ class IndexPage extends React.Component {
     e.preventDefault()
     this.deferredPrompt = e
     this.setState({ stateDisplayInstallBtn: true })
+  }
+
+  handleAppInstallation() {
+    this.deferredPrompt.prompt()
+    this.deferredPrompt.userChoice.then(choiceResult => {
+      if (choiceResult.outcome === "accepted") {
+        this.setState({ stateDisplayInstallBtn: false })
+      }
+      this.deferredPrompt = null
+    })
   }
 
   containsText() {
@@ -144,13 +155,17 @@ class IndexPage extends React.Component {
                   label="Card Name"
                   inputRef={el => (this.refUserInput = el)}
                 />
-              </div>
-              <div style={classes.buttons}>
                 {this.state.stateDisplayInstallBtn ? (
-                  <IconButton color="primary" aria-label="add to shopping cart">
+                  <IconButton
+                    color="primary"
+                    aria-label="install"
+                    onClick={() => this.handleAppInstallation()}
+                  >
                     <AddShoppingCartIcon />
                   </IconButton>
                 ) : null}
+              </div>
+              <div style={classes.buttons}>
                 <Button
                   variant="contained"
                   color="primary"
