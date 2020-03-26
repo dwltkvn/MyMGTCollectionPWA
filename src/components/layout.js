@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
           {children}
         </main>
         <footer>
-          © {new Date().getFullYear()}, Built with
+          {new Date().toUTCString()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
