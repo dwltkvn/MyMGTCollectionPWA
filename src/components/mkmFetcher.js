@@ -3,6 +3,7 @@ import React from "react"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import Fade from "@material-ui/core/Fade"
+import Typography from "@material-ui/core/Typography"
 
 const styles = {
   mainLayout: {
@@ -38,6 +39,7 @@ class MKMFetcher extends React.Component {
     this.fetchSellerCardCount = this.fetchSellerCardCount.bind(this)
     this.state = {
       stateMounted: false,
+      stateCardCount: 100,
     }
   }
 
@@ -52,7 +54,14 @@ class MKMFetcher extends React.Component {
     //window.removeEventListener("event",this.handleEvent);
   }
 
-  fetchSellerCardCount() {}
+  fetchSellerCardCount() {
+    fetch("./.netlify/functions/mkmseller?seller=jinkaz").then(response =>
+      response
+        .json()
+        .then(json => this.setState({ stateCardCount: json.nbcards }))
+    )
+  }
+
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
@@ -78,6 +87,7 @@ class MKMFetcher extends React.Component {
               </Button>
             </div>
           </form>
+          <Typography variant="h5">{this.state.stateCardCount}</Typography>
         </div>
       </Fade>
     )
