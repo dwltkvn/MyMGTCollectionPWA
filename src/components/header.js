@@ -44,6 +44,7 @@ const Header = ({ siteTitle, cbTabChanged, propCurrentTab }) => (
         >
           <Tab label="Search" />
           <Tab label="Wishlist" />
+          <Tab label="Fetch" />
           <Tab label="Info" />
         </Tabs>
       </AppBar>

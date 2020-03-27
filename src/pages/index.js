@@ -10,6 +10,7 @@ import AddIcon from "@material-ui/icons/Add"
 
 import CollectionSearch from "../components/collectionSearch"
 import WishList from "../components/wishlist"
+import MkmFetcher from "../components/mkmFetcher"
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -98,6 +99,9 @@ class IndexPage extends React.Component {
         )}
         {this.state.stateCurrentPage === 1 && (
           <WishList propMounted={this.state.stateMounted} />
+        )}
+        {this.state.stateCurrentPage === 2 && (
+          <MkmFetcher propMounted={this.state.stateMounted} />
         )}
         {this.state.stateDisplayInstallBtn ? (
           <IconButton

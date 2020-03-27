@@ -9,6 +9,8 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
+import Typography from "@material-ui/core/Typography"
+
 import Header from "./header"
 import "./layout.css"
 
@@ -65,9 +67,11 @@ const Layout = ({ children, cbPageChanged }) => {
           {children}
         </main>
         <footer>
-          {data.site.siteMetadata.buildDate}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          <Typography variant="caption" display="block" gutterBottom>
+            {data.site.siteMetadata.buildDate}, Built with
+            {` `}
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </Typography>
         </footer>
       </div>
     </div>
