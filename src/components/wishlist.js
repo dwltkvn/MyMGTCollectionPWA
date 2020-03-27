@@ -102,13 +102,14 @@ class WishList extends React.Component {
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
               />
-              <Button
-                variant="contained"
+              <IconButton
                 color="primary"
-                onClick={() => this.addToWishList()}
+                aria-label="add seller"
+                component="span"
+                onClick={() => this.addSeller()}
               >
-                Add
-              </Button>
+                <AddIcon />
+              </IconButton>
             </div>
           </form>
           <List dense={true} style={classes.cardList}>

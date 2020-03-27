@@ -2,11 +2,14 @@ import React from "react"
 
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
+import ButtonGroup from "@material-ui/core/ButtonGroup"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
+import IconButton from "@material-ui/core/IconButton"
+import ClearIcon from "@material-ui/icons/Clear"
 
 const styles = {
   mainLayout: {
@@ -110,35 +113,29 @@ class collectionSearch extends React.Component {
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
               />
+              <IconButton
+                color="primary"
+                aria-label="add seller"
+                component="span"
+                onClick={() => this.addSeller()}
+              >
+                <ClearIcon />
+              </IconButton>
             </div>
             <div style={classes.buttons}>
-              <Button
-                variant="contained"
+              <ButtonGroup
                 color="primary"
-                onClick={() => this.searchCard(data)}
+                aria-label="outlined primary button group"
               >
-                Search
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => this.containsText(data)}
-              >
-                Contains
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  this.refUserInput.value = ""
-                  this.setState({ stateSearchResult: [] })
-                }}
-              >
-                Clear
-              </Button>
+                <Button onClick={() => this.searchCard(data)}>Search</Button>
+                <Button onClick={() => this.containsText(data)}>
+                  Contains
+                </Button>
+              </ButtonGroup>
             </div>
           </form>
 
-          <List style={classes.cardList}>
+          <List dense={true} style={classes.cardList}>
             {this.state.stateSearchResult.map((e, i) => {
               return (
                 <Slide

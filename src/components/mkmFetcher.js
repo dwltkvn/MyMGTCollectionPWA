@@ -3,7 +3,18 @@ import React from "react"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import Fade from "@material-ui/core/Fade"
-import Typography from "@material-ui/core/Typography"
+import MenuItem from "@material-ui/core/MenuItem"
+import Paper from "@material-ui/core/Paper"
+
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction"
+
+import IconButton from "@material-ui/core/IconButton"
+import DeleteIcon from "@material-ui/icons/Delete"
+import SearchIcon from "@material-ui/icons/Search"
+import AddIcon from "@material-ui/icons/Add"
 
 const styles = {
   mainLayout: {
@@ -37,9 +48,12 @@ class MKMFetcher extends React.Component {
     super(props)
     // this.handeEvent = this.handleEvent.bind(this);
     this.fetchSellerCardCount = this.fetchSellerCardCount.bind(this)
+    this.addSeller = this.addSeller.bind(this)
+    this.deleteSeller = this.deleteSeller.bind(this)
     this.state = {
       stateMounted: false,
       stateCardCount: 100,
+      stateSellerList: ["Jinkaz", "baobab"],
     }
   }
 
@@ -48,17 +62,48 @@ class MKMFetcher extends React.Component {
     /*const d = localStorage.getItem("KDOWishList")
     const w = JSON.parse(d)
     if (d !== null && d !== "") this.setState({ stateWishList: w })*/
+
+    const d = localStorage.getItem("KDOSellerList")
+    const w = JSON.parse(d)
+    if (d !== null && d !== "") this.setState({ stateSellerList: w })
   }
 
   componentWillUnmount() {
     //window.removeEventListener("event",this.handleEvent);
   }
 
-  fetchSellerCardCount() {
-    fetch("./.netlify/functions/mkmseller?seller=jinkaz").then(response =>
+  fetchSellerCardCount(idx) {
+    const seller = this.state.stateSellerList[idx]
+    if (seller === "") return
+
+    fetch("./.netlify/functions/mkmseller?seller=" + seller).then(response =>
       response
         .json()
         .then(json => this.setState({ stateCardCount: json.nbcards }))
+    )
+  }
+
+  addSeller() {
+    let sellers = this.state.stateSellerList
+    sellers.unshift(this.refSellerInput.value)
+    this.setState({ stateSellerList: sellers })
+
+    this.refSellerInput.value = ""
+    localStorage.setItem(
+      "KDOSellerList",
+      JSON.stringify(this.state.stateSellerList)
+    )
+  }
+
+  deleteSeller(idx) {
+    //console.log(idx)
+    let w = this.state.stateSellerList
+    w.splice(idx, 1)
+    this.setState({ stateSellerList: w })
+
+    localStorage.setItem(
+      "KDOSellerList",
+      JSON.stringify(this.state.stateSellerList)
     )
   }
 
@@ -75,19 +120,43 @@ class MKMFetcher extends React.Component {
             <div>
               <TextField
                 id="standard-basic"
-                label="Seller Name"
-                inputRef={el => (this.refUserInput = el)}
+                label="Input"
+                inputRef={el => (this.refSellerInput = el)}
               />
-              <Button
-                variant="contained"
+              <IconButton
                 color="primary"
-                onClick={() => this.fetchSellerCardCount()}
+                aria-label="add seller"
+                component="span"
+                onClick={() => this.addSeller()}
               >
-                Card Count
-              </Button>
+                <AddIcon />
+              </IconButton>
             </div>
           </form>
-          <Typography variant="h5">{this.state.stateCardCount}</Typography>
+          <List dense={true} style={classes.cardList}>
+            {this.state.stateSellerList.map((e, i) => {
+              return (
+                <ListItem
+                  key={i}
+                  button
+                  onClick={() => this.fetchSellerCardCount(i)}
+                >
+                  <ListItemText primary={e} key={i} />
+                  <ListItemSecondaryAction key={i}>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      key={i}
+                      onClick={() => this.deleteSeller(i)}
+                    >
+                      <DeleteIcon key={i} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )
+            })}
+          </List>
+          <Paper>{this.state.stateCardCount}</Paper>
         </div>
       </Fade>
     )
