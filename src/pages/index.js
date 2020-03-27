@@ -1,63 +1,20 @@
 import React from "react"
-import { Link } from "gatsby"
-
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
 import { useStaticQuery, graphql } from "gatsby"
 
-import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
-import IconButton from "@material-ui/core/IconButton"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import Slide from "@material-ui/core/Slide"
-import Fade from "@material-ui/core/Fade"
+import Layout from "../components/layout"
+import SEO from "../components/seo"
 import Snackbar from "@material-ui/core/Snackbar"
-
-import AddIcon from "@material-ui/icons/Add"
-
-const styles = {
-  mainLayout: {
-    //height: "1vh",
-    //border: "dashed red",
-    display: "flex",
-    flexDirection: "column",
-    flex: 1,
-    minHeight: "0",
-    height: "0",
-  },
-  cardList: {
-    //flex: "1 1 auto",
-    overflow: "auto",
-    //"min-height": "0",
-    //border: "solid blue",
-    //height: "300px",
-  },
-  myForm: {
-    //height: "1vh",
-    //border: "dashed blue",
-    //flex: 0,
-  },
-  buttons: {
-    padding: "1.0875rem 1.0875rem 1.0875rem 1.0875rem",
-  },
-}
-
+import CollectionSearch from "../components/collectionSearch"
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
     // this.handeEvent = this.handleEvent.bind(this);
-    this.searchCard = this.searchCard.bind(this)
-    this.containsText = this.containsText.bind(this)
     this.handleBeforeInstallPrompt = this.handleBeforeInstallPrompt.bind(this)
     this.handleAppInstallation = this.handleAppInstallation.bind(this)
     this.checkForUpdate = this.checkForUpdate.bind(this)
     this.data = props.data
     this.deferredPrompt = null
     this.state = {
-      stateSearchResult: [],
       stateMounted: false,
       stateDisplayInstallBtn: false,
       stateUpdateAvailable: false,
@@ -70,10 +27,8 @@ class IndexPage extends React.Component {
       "beforeinstallprompt",
       this.handleBeforeInstallPrompt
     )
-    window.addEventListener("appinstalled", e =>
-      this.setState({ stateDisplayInstallBtn: false })
-    )
     this.checkForUpdate()
+    console.log(this.data.allDataJson.nodes[0].lists.Lands[0])
   }
 
   componentWillUnmount() {
@@ -82,7 +37,6 @@ class IndexPage extends React.Component {
       "beforeinstallprompt",
       this.handleBeforeInstallPrompt
     )
-    window.removeEventListener("appinstalled")
   }
 
   handleBeforeInstallPrompt(e) {
@@ -94,9 +48,10 @@ class IndexPage extends React.Component {
   handleAppInstallation() {
     this.deferredPrompt.prompt()
     this.deferredPrompt.userChoice.then(choiceResult => {
-      if (choiceResult.outcome === "accepted") {
-        this.setState({ stateDisplayInstallBtn: false })
-      }
+      /*if (choiceResult.outcome === "accepted") {
+        
+      }*/
+      this.setState({ stateDisplayInstallBtn: false })
       this.deferredPrompt = null
     })
   }
@@ -108,50 +63,10 @@ class IndexPage extends React.Component {
     if (!stateUpdateAvailable) setTimeout(this.checkForUpdate, 1000)
   }
 
-  containsText() {
-    const v = this.refUserInput.value
-    if (v === "") return
-    if (v.length < 3) return
-
-    let result = []
-    //console.log(v)
-    const keys = Object.keys(this.data.allDataJson.nodes[0].lists)
-    //console.log(keys)
-    keys.forEach(key => {
-      this.data.allDataJson.nodes[0].lists[key].forEach(card => {
-        if (card.toLowerCase().includes(v.toLowerCase())) {
-          //console.log(key + " " + card)
-          let r = { cardname: card, listname: key }
-          result.push(r)
-        }
-      })
-    })
-    this.setState({ stateSearchResult: result })
-  }
-
-  searchCard() {
-    const v = this.refUserInput.value
-    let result = []
-    //console.log(v)
-    const keys = Object.keys(this.data.allDataJson.nodes[0].lists)
-    //console.log(keys)
-    keys.forEach(key => {
-      this.data.allDataJson.nodes[0].lists[key].forEach(card => {
-        if (card.toLowerCase() === v.toLowerCase()) {
-          //console.log(key + " " + card)
-          let r = { cardname: card, listname: key }
-          result.push(r)
-        }
-      })
-    })
-    this.setState({ stateSearchResult: result })
-  }
-
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
     //const { classes } = this.props
-    const classes = styles
 
     return (
       <Layout>
@@ -165,75 +80,13 @@ class IndexPage extends React.Component {
           open={this.state.stateUpdateAvailable}
           autoHideDuration={6000}
           onClose={() => this.setState({ stateUpdateAvailable: false })}
-          message="Update Available"
+          message="Update Available: Plz reload"
         />
 
-        <Fade
-          direction="up"
-          in={this.state.stateMounted}
-          mountOnEnter
-          unmountOnExit
-        >
-          <div style={classes.mainLayout}>
-            <form noValidate autoComplete="off" style={classes.myForm}>
-              <div>
-                <TextField
-                  id="standard-basic"
-                  label="Card Name"
-                  inputRef={el => (this.refUserInput = el)}
-                />
-                {this.state.stateDisplayInstallBtn ? (
-                  <IconButton
-                    color="primary"
-                    aria-label="install"
-                    onClick={() => this.handleAppInstallation()}
-                  >
-                    <AddIcon />
-                  </IconButton>
-                ) : null}
-              </div>
-              <div style={classes.buttons}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => this.searchCard()}
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => this.containsText()}
-                >
-                  Contains
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    this.refUserInput.value = ""
-                    this.setState({ stateSearchResult: [] })
-                  }}
-                >
-                  Clear
-                </Button>
-              </div>
-            </form>
-
-            <List style={classes.cardList}>
-              {this.state.stateSearchResult.map((e, i) => {
-                return (
-                  <ListItem key={i}>
-                    <ListItemText
-                      key={i}
-                      primary={e.cardname}
-                      secondary={e.listname}
-                    />
-                  </ListItem>
-                )
-              })}
-            </List>
-          </div>
-        </Fade>
+        <CollectionSearch
+          propMounted={this.state.stateMounted}
+          data={this.data}
+        />
       </Layout>
     )
   }
@@ -363,16 +216,3 @@ export const query = graphql`
     }
   }
 `
-
-/*
-export const query = graphql`
-  query {
-    allDataJson {
-      nodes {
-        lists {
-          land
-        }
-      }
-    }
-  }
-`*/

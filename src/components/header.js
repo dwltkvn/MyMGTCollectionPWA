@@ -2,6 +2,10 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 
+import AppBar from "@material-ui/core/AppBar"
+import Tabs from "@material-ui/core/Tabs"
+import Tab from "@material-ui/core/Tab"
+
 const Header = ({ siteTitle }) => (
   <header
     style={{
@@ -28,6 +32,13 @@ const Header = ({ siteTitle }) => (
         </Link>
       </h1>
     </div>
+    <AppBar position="static">
+      <Tabs value={0} onChange={null} aria-label="simple tabs example" centered>
+        <Tab label="Item One" />
+        <Tab label="Item Two" />
+        <Tab label="Item Three" />
+      </Tabs>
+    </AppBar>
   </header>
 )
 
