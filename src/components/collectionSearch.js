@@ -2,14 +2,11 @@ import React from "react"
 
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
-import IconButton from "@material-ui/core/IconButton"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
-
-import AddIcon from "@material-ui/icons/Add"
 
 const styles = {
   mainLayout: {
@@ -113,15 +110,6 @@ class collectionSearch extends React.Component {
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
               />
-              {this.state.stateDisplayInstallBtn ? (
-                <IconButton
-                  color="primary"
-                  aria-label="install"
-                  onClick={() => this.handleAppInstallation()}
-                >
-                  <AddIcon />
-                </IconButton>
-              ) : null}
             </div>
             <div style={classes.buttons}>
               <Button

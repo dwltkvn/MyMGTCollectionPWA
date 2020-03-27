@@ -5,14 +5,14 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 import "./layout.css"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, cbPageChanged }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -24,6 +24,7 @@ const Layout = ({ children }) => {
     }
   `)
 
+  const [stateTab, setTab] = useState(0)
   return (
     <div
       style={{
@@ -33,7 +34,14 @@ const Layout = ({ children }) => {
         flexDirection: "column",
       }}
     >
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header
+        siteTitle={data.site.siteMetadata.title}
+        cbTabChanged={(e, v) => {
+          cbPageChanged(v)
+          setTab(v)
+        }}
+        propCurrentTab={stateTab}
+      />
 
       <div
         style={{
@@ -68,6 +76,7 @@ const Layout = ({ children }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  // cbPageChanged: PropTypes.Func ???
 }
 
 export default Layout

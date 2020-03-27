@@ -6,7 +6,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 
-const Header = ({ siteTitle }) => (
+const Header = ({ siteTitle, cbTabChanged, propCurrentTab }) => (
   <header
     style={{
       background: `black`,
@@ -33,10 +33,15 @@ const Header = ({ siteTitle }) => (
       </h1>
     </div>
     <AppBar position="static">
-      <Tabs value={0} onChange={null} aria-label="simple tabs example" centered>
-        <Tab label="Item One" />
-        <Tab label="Item Two" />
-        <Tab label="Item Three" />
+      <Tabs
+        value={propCurrentTab}
+        onChange={(e, v) => cbTabChanged(e, v)}
+        aria-label="simple tabs example"
+        centered
+      >
+        <Tab label="Search" />
+        <Tab label="Wishlist" />
+        <Tab label="Info" />
       </Tabs>
     </AppBar>
   </header>
@@ -44,6 +49,7 @@ const Header = ({ siteTitle }) => (
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
+  //cbTabChanged: PropTypes.Fund ???
 }
 
 Header.defaultProps = {

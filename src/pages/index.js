@@ -4,7 +4,13 @@ import { useStaticQuery, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Snackbar from "@material-ui/core/Snackbar"
+
+import IconButton from "@material-ui/core/IconButton"
+import AddIcon from "@material-ui/icons/Add"
+
 import CollectionSearch from "../components/collectionSearch"
+import WishList from "../components/wishlist"
+
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
@@ -18,6 +24,7 @@ class IndexPage extends React.Component {
       stateMounted: false,
       stateDisplayInstallBtn: false,
       stateUpdateAvailable: false,
+      stateCurrentPage: 0,
     }
   }
 
@@ -69,7 +76,7 @@ class IndexPage extends React.Component {
     //const { classes } = this.props
 
     return (
-      <Layout>
+      <Layout cbPageChanged={v => this.setState({ stateCurrentPage: v })}>
         <SEO title="Search" />
 
         <Snackbar
@@ -83,10 +90,24 @@ class IndexPage extends React.Component {
           message="Update Available: Plz reload"
         />
 
-        <CollectionSearch
-          propMounted={this.state.stateMounted}
-          data={this.data}
-        />
+        {this.state.stateCurrentPage === 0 && (
+          <CollectionSearch
+            propMounted={this.state.stateMounted}
+            data={this.data}
+          />
+        )}
+        {this.state.stateCurrentPage === 1 && (
+          <WishList propMounted={this.state.stateMounted} />
+        )}
+        {this.state.stateDisplayInstallBtn ? (
+          <IconButton
+            color="primary"
+            aria-label="install"
+            onClick={() => this.handleAppInstallation()}
+          >
+            <AddIcon />
+          </IconButton>
+        ) : null}
       </Layout>
     )
   }
