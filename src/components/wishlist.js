@@ -6,11 +6,12 @@ import IconButton from "@material-ui/core/IconButton"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
 
 import AddIcon from "@material-ui/icons/Add"
-
+import DeleteIcon from "@material-ui/icons/Delete"
 const styles = {
   mainLayout: {
     //height: "1vh",
@@ -42,17 +43,47 @@ class WishList extends React.Component {
   constructor(props) {
     super(props)
     // this.handeEvent = this.handleEvent.bind(this);
+    this.addToWishList = this.addToWishList.bind(this)
     this.state = {
       stateMounted: false,
+      stateWishList: ["1", "2"],
     }
   }
 
   componentDidMount() {
     this.setState({ stateMounted: true })
+    const d = localStorage.getItem("KDOWishList")
+    const w = JSON.parse(d)
+    if (d !== null && d !== "") this.setState({ stateWishList: w })
   }
 
   componentWillUnmount() {
     //window.removeEventListener("event",this.handleEvent);
+  }
+
+  addToWishList() {
+    const v = this.refUserInput.value
+
+    let w = this.state.stateWishList
+    w.unshift(v)
+    this.setState({ stateWishList: w })
+
+    this.refUserInput.value = ""
+    localStorage.setItem(
+      "KDOWishList",
+      JSON.stringify(this.state.stateWishList)
+    )
+  }
+
+  deteteFromWishList(idx) {
+    //console.log(idx)
+    let w = this.state.stateWishList
+    w.splice(idx, 1)
+    this.setState({ stateWishList: w })
+    localStorage.setItem(
+      "KDOWishList",
+      JSON.stringify(this.state.stateWishList)
+    )
   }
 
   render() {
@@ -71,11 +102,34 @@ class WishList extends React.Component {
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
               />
-              <Button variant="contained" color="primary" onClick={null}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => this.addToWishList()}
+              >
                 Add
               </Button>
             </div>
           </form>
+          <List dense={true}>
+            {this.state.stateWishList.map((e, i) => {
+              return (
+                <ListItem key={i}>
+                  <ListItemText primary={e} key={i} />
+                  <ListItemSecondaryAction key={i}>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      key={i}
+                      onClick={() => this.deteteFromWishList(i)}
+                    >
+                      <DeleteIcon key={i} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )
+            })}
+          </List>
         </div>
       </Fade>
     )
