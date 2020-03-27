@@ -6,6 +6,8 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 
+import Fade from "@material-ui/core/Fade"
+
 const Header = ({ siteTitle, cbTabChanged, propCurrentTab }) => (
   <header
     style={{
@@ -32,18 +34,20 @@ const Header = ({ siteTitle, cbTabChanged, propCurrentTab }) => (
         </Link>
       </h1>
     </div>
-    <AppBar position="static">
-      <Tabs
-        value={propCurrentTab}
-        onChange={(e, v) => cbTabChanged(e, v)}
-        aria-label="simple tabs example"
-        centered
-      >
-        <Tab label="Search" />
-        <Tab label="Wishlist" />
-        <Tab label="Info" />
-      </Tabs>
-    </AppBar>
+    <Fade direction="up" in={true} mountOnEnter unmountOnExit>
+      <AppBar position="static">
+        <Tabs
+          value={propCurrentTab}
+          onChange={(e, v) => cbTabChanged(e, v)}
+          aria-label="simple tabs example"
+          centered
+        >
+          <Tab label="Search" />
+          <Tab label="Wishlist" />
+          <Tab label="Info" />
+        </Tabs>
+      </AppBar>
+    </Fade>
   </header>
 )
 

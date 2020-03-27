@@ -46,7 +46,7 @@ class WishList extends React.Component {
     this.addToWishList = this.addToWishList.bind(this)
     this.state = {
       stateMounted: false,
-      stateWishList: ["1", "2"],
+      stateWishList: [],
     }
   }
 
@@ -111,7 +111,7 @@ class WishList extends React.Component {
               </Button>
             </div>
           </form>
-          <List dense={true}>
+          <List dense={true} style={classes.cardList}>
             {this.state.stateWishList.map((e, i) => {
               return (
                 <ListItem key={i}>

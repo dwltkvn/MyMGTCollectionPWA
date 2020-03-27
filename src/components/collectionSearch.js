@@ -141,13 +141,21 @@ class collectionSearch extends React.Component {
           <List style={classes.cardList}>
             {this.state.stateSearchResult.map((e, i) => {
               return (
-                <ListItem key={i}>
-                  <ListItemText
-                    key={i}
-                    primary={e.cardname}
-                    secondary={e.listname}
-                  />
-                </ListItem>
+                <Slide
+                  direction="up"
+                  in={true}
+                  mountOnEnter
+                  unmountOnExit
+                  key={i}
+                >
+                  <ListItem key={i}>
+                    <ListItemText
+                      key={i}
+                      primary={e.cardname}
+                      secondary={e.listname}
+                    />
+                  </ListItem>
+                </Slide>
               )
             })}
           </List>
