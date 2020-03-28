@@ -25,10 +25,6 @@ class MKMFetchComponent extends React.Component {
 
   componentDidMount() {
     this.setState({ stateMounted: true })
-
-    /*const d = localStorage.getItem("KDOSellerList")
-    const w = JSON.parse(d)
-    if (d !== null && d !== "") this.setState({ stateSellerList: w })*/
   }
 
   componentWillUnmount() {

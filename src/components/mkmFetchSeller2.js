@@ -4,8 +4,8 @@ class MKMFetcherSeller2 extends MkmFetcher {
   constructor(props) {
     super(props)
 
-    this.state.stateDataList = ["Jinkaz2", "baobab2"]
-
+    this.state.stateDataList = []
+    this.localStorage = "KDOSellerFetchList"
     // console.log("mkmfetcher2")
   }
 

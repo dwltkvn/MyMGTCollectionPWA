@@ -1,9 +1,7 @@
 import React from "react"
 
 import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
 import Fade from "@material-ui/core/Fade"
-import MenuItem from "@material-ui/core/MenuItem"
 import Paper from "@material-ui/core/Paper"
 
 import List from "@material-ui/core/List"
@@ -13,7 +11,6 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction"
 
 import IconButton from "@material-ui/core/IconButton"
 import DeleteIcon from "@material-ui/icons/Delete"
-import SearchIcon from "@material-ui/icons/Search"
 import AddIcon from "@material-ui/icons/Add"
 
 const styles = {
@@ -50,21 +47,20 @@ class MKMFetcher extends React.Component {
     this.fetchData = this.fetchData.bind(this)
     this.addData = this.addData.bind(this)
     this.deleteData = this.deleteData.bind(this)
+    this.localStorage = "KDO"
     this.state = {
       stateMounted: false,
       stateResult: "1",
       stateDataList: ["Jinkaz", "baobab"],
     }
-
-    //console.log("mkmfetcher1")
   }
 
   componentDidMount() {
     this.setState({ stateMounted: true })
 
-    /*const d = localStorage.getItem("KDOSellerList")
+    const d = localStorage.getItem(this.localStorage)
     const w = JSON.parse(d)
-    if (d !== null && d !== "") this.setState({ stateSellerList: w })*/
+    if (d !== null && d !== "") this.setState({ stateDataList: w })
   }
 
   componentWillUnmount() {
@@ -89,10 +85,10 @@ class MKMFetcher extends React.Component {
     this.setState({ stateDataList: data })
 
     this.refInput.value = ""
-    /*localStorage.setItem(
-      "KDOSellerList",
-      JSON.stringify(this.state.stateSellerList)
-    )*/
+    localStorage.setItem(
+      this.localStorage,
+      JSON.stringify(this.state.stateDataList)
+    )
   }
 
   deleteData(idx) {
@@ -101,10 +97,10 @@ class MKMFetcher extends React.Component {
     w.splice(idx, 1)
     this.setState({ stateSellerList: w })
 
-    /*localStorage.setItem(
-      "KDOSellerList",
-      JSON.stringify(this.state.stateSellerList)
-    )*/
+    localStorage.setItem(
+      this.localStorage,
+      JSON.stringify(this.state.stateDataList)
+    )
   }
 
   render() {

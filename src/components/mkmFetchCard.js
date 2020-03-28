@@ -4,8 +4,8 @@ class MKMFetcherCard extends MkmFetcher {
   constructor(props) {
     super(props)
 
-    this.state.stateDataList = ["Muldrotha, the Gravetide", "Sulfur Falls"]
-
+    this.state.stateDataList = []
+    this.localStorage = "KDOCardFetchList"
     // console.log("mkmfetcher2")
   }
 
@@ -35,6 +35,11 @@ class MKMFetcherCard extends MkmFetcher {
     this.setState({ stateDataList: data })
 
     this.refInput.value = ""
+
+    localStorage.setItem(
+      this.localStorage,
+      JSON.stringify(this.state.stateDataList)
+    )
   }
 }
 
