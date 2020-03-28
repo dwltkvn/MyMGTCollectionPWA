@@ -44,9 +44,11 @@ class collectionSearch extends React.Component {
     // this.handeEvent = this.handleEvent.bind(this);
     this.searchCard = this.searchCard.bind(this)
     this.containsText = this.containsText.bind(this)
+    this.addToWishList = this.addToWishList.bind(this)
     this.state = {
       stateSearchResult: [],
       stateMounted: false,
+      stateSearching: 0, // 0:initial, 1:found, 2: searching, 3:not found
     }
   }
 
@@ -63,6 +65,7 @@ class collectionSearch extends React.Component {
     if (v === "") return
     if (v.length < 3) return
 
+    this.setState({ stateSearching: 2 })
     let result = []
     //console.log(v)
     const keys = Object.keys(data.allDataJson.nodes[0].lists)
@@ -77,10 +80,17 @@ class collectionSearch extends React.Component {
       })
     })
     this.setState({ stateSearchResult: result })
+    let stateSearching = 1
+    if (result.length === 0) {
+      stateSearching = 3
+    } // not found
+    this.setState({ stateSearching })
   }
 
   searchCard(data) {
     const v = this.refUserInput.value
+
+    this.setState({ stateSearching: 2 })
     let result = []
     //console.log(v)
     const keys = Object.keys(data.allDataJson.nodes[0].lists)
@@ -95,6 +105,25 @@ class collectionSearch extends React.Component {
       })
     })
     this.setState({ stateSearchResult: result })
+    let stateSearching = 1
+    if (result.length === 0) {
+      stateSearching = 3
+    } // not found
+    this.setState({ stateSearching })
+  }
+
+  addToWishList() {
+    const v = this.refUserInput.value
+
+    const d = localStorage.getItem("KDOWishList")
+    let w = JSON.parse(d)
+    if (d === null || d === "") w = []
+
+    w.unshift(v)
+
+    this.refUserInput.value = ""
+    localStorage.setItem("KDOWishList", JSON.stringify(w))
+    this.setState({ stateSearching: 0 }) // restore the search state
   }
 
   render() {
@@ -157,6 +186,13 @@ class collectionSearch extends React.Component {
               )
             })}
           </List>
+
+          {this.state.stateSearching === 3 && (
+            <Button variant="outlined" onClick={() => this.addToWishList(data)}>
+              Add to Wishlist
+            </Button>
+          )}
+          {this.state.stateSearching === 2 && <b>Searching...</b>}
         </div>
       </Fade>
     )
