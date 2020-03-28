@@ -22,6 +22,20 @@ class MKMFetcherCard extends MkmFetcher {
         )
     )
   }
+
+  addData() {
+    let data = this.state.stateDataList
+    let input = this.refInput.value
+    input = input
+      .replace(/ /g, "-")
+      .replace(/'/g, "")
+      .replace(/,/g, "")
+
+    data.unshift(input)
+    this.setState({ stateDataList: data })
+
+    this.refInput.value = ""
+  }
 }
 
 export default MKMFetcherCard

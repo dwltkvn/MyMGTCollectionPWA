@@ -18,7 +18,10 @@ const lambda = async (event, context) => {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
       body:
-        "sellerCountry%5B12%5D=12&sellerReputation=5&maxShippingTime=7&minCondition=7&extra%5BisFoil%5D=0&extra%5BisSigned%5D=0&extra%5BisPlayset%5D=0&extra%5BisAltered%5D=0&amount=0&apply=Filtrer",
+        "sellerCountry%5B12%5D=12&minCondition=7&extra%5BisFoil%5D=0&extra%5BisSigned%5D=0&extra%5BisPlayset%5D=0&extra%5BisAltered%5D=0&amount=0&apply=Filtrer",
+      //"__cmtkn=50b0d0836c4c3aa6beffbd5ab2bd4672d62c3164a1c6c87010fd536345133bee&sellerCountry%5B12%5D=12&minCondition=7&extra%5BisFoil%5D=0&extra%5BisSigned%5D=0&extra%5BisPlayset%5D=0&extra%5BisAltered%5D=0&amount=0&apply=Filtrer",
+      //"__cmtkn=50b0d0836c4c3aa6beffbd5ab2bd4672d62c3164a1c6c87010fd536345133bee&sellerCountry%5B12%5D=12&sellerReputation=5&maxShippingTime=7&minCondition=7&extra%5BisFoil%5D=0&extra%5BisSigned%5D=0&extra%5BisPlayset%5D=0&extra%5BisAltered%5D=0&amount=0&apply=Filtrer",
+      //"sellerCountry%5B12%5D=12&sellerReputation=5&maxShippingTime=7&minCondition=7&extra%5BisFoil%5D=0&extra%5BisSigned%5D=0&extra%5BisPlayset%5D=0&extra%5BisAltered%5D=0&amount=0&apply=Filtrer",
       //"sellerCountry%5B12%5D=12&sellerReputation=1&maxShippingTime=7&minCondition=7&extra%5BisFoil%5D=0&extra%5BisSigned%5D=0&extra%5BisPlayset%5D=0&extra%5BisAltered%5D=0&amount=0&apply=Filtrer",
     }
   )
@@ -58,8 +61,8 @@ const lambda = async (event, context) => {
   return { statusCode: 200, body: stringified }
 }
 
-/*lambda({
-  queryStringParameters: { card: "Muldrotha-la-maree-funeraire" },
-}).then(data => console.log(data))*/
+lambda({
+  queryStringParameters: { card: "Korvold-Fae-Cursed-King" },
+}).then(data => console.log(data))
 
 exports.handler = lambda
