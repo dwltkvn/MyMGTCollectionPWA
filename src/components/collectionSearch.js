@@ -113,11 +113,12 @@ class collectionSearch extends React.Component {
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
               />
+
               <IconButton
                 color="primary"
                 aria-label="add seller"
                 component="span"
-                onClick={() => this.addSeller()}
+                onClick={() => (this.refUserInput.value = "")}
               >
                 <ClearIcon />
               </IconButton>

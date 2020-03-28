@@ -43,68 +43,68 @@ const styles = {
   },
 }
 
-class MKMFetcher extends React.Component {
+class MKMFetcherSeller extends React.Component {
   constructor(props) {
     super(props)
     // this.handeEvent = this.handleEvent.bind(this);
-    this.fetchData = this.fetchData.bind(this)
-    this.addData = this.addData.bind(this)
-    this.deleteData = this.deleteData.bind(this)
+    this.fetchSellerCardCount = this.fetchSellerCardCount.bind(this)
+    this.addSeller = this.addSeller.bind(this)
+    this.deleteSeller = this.deleteSeller.bind(this)
     this.state = {
       stateMounted: false,
-      stateResult: "1",
-      stateDataList: ["Jinkaz", "baobab"],
+      stateCardCount: 100,
+      stateSellerList: ["Jinkaz", "baobab"],
     }
-
-    console.log("mkmfetcher1")
   }
 
   componentDidMount() {
     this.setState({ stateMounted: true })
-
-    /*const d = localStorage.getItem("KDOSellerList")
+    /*const d = localStorage.getItem("KDOWishList")
     const w = JSON.parse(d)
-    if (d !== null && d !== "") this.setState({ stateSellerList: w })*/
+    if (d !== null && d !== "") this.setState({ stateWishList: w })*/
+
+    const d = localStorage.getItem("KDOSellerList")
+    const w = JSON.parse(d)
+    if (d !== null && d !== "") this.setState({ stateSellerList: w })
   }
 
   componentWillUnmount() {
     //window.removeEventListener("event",this.handleEvent);
   }
 
-  fetchData(idx) {
-    console.log("fetch from fetcher1")
-    /*const data = this.state.stateDataList[idx]
-    if (data === "") return
+  fetchSellerCardCount(idx) {
+    const seller = this.state.stateSellerList[idx]
+    if (seller === "") return
 
-    fetch("./.netlify/functions/mkmseller?seller=" + data).then(response =>
+    fetch("./.netlify/functions/mkmseller?seller=" + seller).then(response =>
       response
         .json()
         .then(json => this.setState({ stateCardCount: json.nbcards }))
-    )*/
+    )
   }
 
-  addData() {
-    let data = this.state.stateDataList
-    data.unshift(this.refInput.value)
-    this.setState({ stateDataList: data })
+  addSeller() {
+    let sellers = this.state.stateSellerList
+    sellers.unshift(this.refSellerInput.value)
+    this.setState({ stateSellerList: sellers })
 
-    this.refInput.value = ""
-    /*localStorage.setItem(
+    this.refSellerInput.value = ""
+    localStorage.setItem(
       "KDOSellerList",
       JSON.stringify(this.state.stateSellerList)
-    )*/
+    )
   }
 
-  deleteData(idx) {
+  deleteSeller(idx) {
     //console.log(idx)
-    let w = this.state.stateDataList
+    let w = this.state.stateSellerList
     w.splice(idx, 1)
     this.setState({ stateSellerList: w })
 
-    /*localStorage.setItem(
+    localStorage.setItem(
       "KDOSellerList",
       JSON.stringify(this.state.stateSellerList)
-    )*/
+    )
   }
 
   render() {
@@ -121,29 +121,33 @@ class MKMFetcher extends React.Component {
               <TextField
                 id="standard-basic"
                 label="Input"
-                inputRef={el => (this.refInput = el)}
+                inputRef={el => (this.refSellerInput = el)}
               />
               <IconButton
                 color="primary"
-                aria-label="add data"
+                aria-label="add seller"
                 component="span"
-                onClick={() => this.addData()}
+                onClick={() => this.addSeller()}
               >
                 <AddIcon />
               </IconButton>
             </div>
           </form>
           <List dense={true} style={classes.cardList}>
-            {this.state.stateDataList.map((e, i) => {
+            {this.state.stateSellerList.map((e, i) => {
               return (
-                <ListItem key={i} button onClick={() => this.fetchData(i)}>
+                <ListItem
+                  key={i}
+                  button
+                  onClick={() => this.fetchSellerCardCount(i)}
+                >
                   <ListItemText primary={e} key={i} />
                   <ListItemSecondaryAction key={i}>
                     <IconButton
                       edge="end"
                       aria-label="delete"
                       key={i}
-                      onClick={() => this.deleteData(i)}
+                      onClick={() => this.deleteSeller(i)}
                     >
                       <DeleteIcon key={i} />
                     </IconButton>
@@ -152,11 +156,11 @@ class MKMFetcher extends React.Component {
               )
             })}
           </List>
-          <Paper>{this.state.stateResult}</Paper>
+          <Paper>{this.state.stateCardCount}</Paper>
         </div>
       </Fade>
     )
   }
 }
 
-export default MKMFetcher
+export default MKMFetcherSeller

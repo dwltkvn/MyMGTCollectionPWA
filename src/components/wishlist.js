@@ -44,6 +44,7 @@ class WishList extends React.Component {
     super(props)
     // this.handeEvent = this.handleEvent.bind(this);
     this.addToWishList = this.addToWishList.bind(this)
+    this.deteteFromWishList = this.deteteFromWishList.bind(this)
     this.state = {
       stateMounted: false,
       stateWishList: [],
@@ -104,9 +105,9 @@ class WishList extends React.Component {
               />
               <IconButton
                 color="primary"
-                aria-label="add seller"
+                aria-label="add to wishlist"
                 component="span"
-                onClick={() => this.addSeller()}
+                onClick={() => this.addToWishList()}
               >
                 <AddIcon />
               </IconButton>

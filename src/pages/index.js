@@ -10,7 +10,7 @@ import AddIcon from "@material-ui/icons/Add"
 
 import CollectionSearch from "../components/collectionSearch"
 import WishList from "../components/wishlist"
-import MkmFetcher from "../components/mkmFetcher"
+import MkmFetcher from "../components/mkmFetchSeller2"
 
 class IndexPage extends React.Component {
   constructor(props) {
