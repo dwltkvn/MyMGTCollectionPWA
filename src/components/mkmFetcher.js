@@ -56,7 +56,7 @@ class MKMFetcher extends React.Component {
       stateDataList: ["Jinkaz", "baobab"],
     }
 
-    console.log("mkmfetcher1")
+    //console.log("mkmfetcher1")
   }
 
   componentDidMount() {
@@ -72,7 +72,7 @@ class MKMFetcher extends React.Component {
   }
 
   fetchData(idx) {
-    console.log("fetch from fetcher1")
+    //console.log("fetch from fetcher1")
     /*const data = this.state.stateDataList[idx]
     if (data === "") return
 

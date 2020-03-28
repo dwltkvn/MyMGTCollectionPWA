@@ -14,13 +14,12 @@ class MKMFetcherCard extends MkmFetcher {
     const data = this.state.stateDataList[idx]
     if (data === "") return
 
-    fetch("./.netlify/functions/mkmcards?lang=en&seller=" + data).then(
-      response =>
-        response
-          .json()
-          .then(json =>
-            this.setState({ stateResult: json.seller + " : " + json.price })
-          )
+    fetch("./.netlify/functions/mkmcards?lang=en&card=" + data).then(response =>
+      response
+        .json()
+        .then(json =>
+          this.setState({ stateResult: json.seller + " : " + json.price })
+        )
     )
   }
 }
