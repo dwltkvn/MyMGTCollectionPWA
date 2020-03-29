@@ -11,7 +11,7 @@ exports.onPreBootstrap = () => {
   for (var propertyName in process.env) {
     if (
       process.env.hasOwnProperty(propertyName) &&
-      ~propertyName.indexOf("gatsby_")
+      ~propertyName.indexOf("GATSBY_")
     ) {
       secrets += `${propertyName}=${process.env[propertyName]}\n`
     }
