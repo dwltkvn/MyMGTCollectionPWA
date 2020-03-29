@@ -13,6 +13,8 @@ import IconButton from "@material-ui/core/IconButton"
 import DeleteIcon from "@material-ui/icons/Delete"
 import AddIcon from "@material-ui/icons/Add"
 
+import firebase from "../components/firebase"
+
 const styles = {
   mainLayout: {
     //height: "1vh",
@@ -51,16 +53,38 @@ class MKMFetcher extends React.Component {
     this.state = {
       stateMounted: false,
       stateResult: "1",
-      stateDataList: ["Jinkaz", "baobab"],
+      stateDataList: [],
     }
   }
 
   componentDidMount() {
     this.setState({ stateMounted: true })
 
-    const d = localStorage.getItem(this.localStorage)
+    /*const d = localStorage.getItem(this.localStorage)
     const w = JSON.parse(d)
-    if (d !== null && d !== "") this.setState({ stateDataList: w })
+    if (d !== null && d !== "") this.setState({ stateDataList: w })*/
+
+    firebase
+      .database()
+      .ref("/" + this.localStorage + "/")
+      .on("value", snapshot => {
+        let w = {}
+        const data = snapshot.val()
+        w = data
+        /*const keys = Object.keys(
+          data
+        ) 
+        keys.forEach(key => {
+          let obj = {}
+          //obj[key] = data[key]
+          //const obj2 = { ...obj, id: key }
+          //w.unshift(obj)
+          //w = { ...w, obj }
+          w[key] = data[key]
+          //console.log(obj2)
+        })*/
+        this.setState({ stateDataList: w })
+      })
   }
 
   componentWillUnmount() {
@@ -130,10 +154,16 @@ class MKMFetcher extends React.Component {
             </div>
           </form>
           <List dense={true} style={classes.cardList}>
-            {this.state.stateDataList.map((e, i) => {
+            {Object.keys(this.state.stateDataList).map((e, i) => {
               return (
                 <ListItem key={i} button onClick={() => this.fetchData(i)}>
-                  <ListItemText primary={e} key={i} />
+                  <ListItemText
+                    primary={e}
+                    secondary={Object.values(this.state.stateDataList[e])
+                      .slice(-5)
+                      .join(",")}
+                    key={i}
+                  />
                   <ListItemSecondaryAction key={i}>
                     <IconButton
                       edge="end"

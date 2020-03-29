@@ -19,13 +19,16 @@ class IndexPage extends React.Component {
     this.handleBeforeInstallPrompt = this.handleBeforeInstallPrompt.bind(this)
     this.handleAppInstallation = this.handleAppInstallation.bind(this)
     this.checkForUpdate = this.checkForUpdate.bind(this)
+    this.goToWishList = this.goToWishList.bind(this)
     this.data = props.data
     this.deferredPrompt = null
+    this.refLayout = null
     this.state = {
       stateMounted: false,
       stateDisplayInstallBtn: false,
       stateUpdateAvailable: false,
       stateCurrentPage: 0,
+      stateDefaultWishCardName: "",
     }
   }
 
@@ -71,13 +74,22 @@ class IndexPage extends React.Component {
     if (!stateUpdateAvailable) setTimeout(this.checkForUpdate, 1000)
   }
 
+  goToWishList(data) {
+    console.log(data)
+    this.setState({ stateCurrentPage: 1, stateDefaultWishCardName: data })
+  }
+
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
     //const { classes } = this.props
 
     return (
-      <Layout cbPageChanged={v => this.setState({ stateCurrentPage: v })}>
+      <Layout
+        cbPageChanged={v =>
+          this.setState({ stateCurrentPage: v, stateDefaultWishCardName: "" })
+        }
+      >
         <SEO title="Search" />
 
         <Snackbar
@@ -95,10 +107,14 @@ class IndexPage extends React.Component {
           <CollectionSearch
             propMounted={this.state.stateMounted}
             data={this.data}
+            cbGoToWishList={this.goToWishList}
           />
         )}
         {this.state.stateCurrentPage === 1 && (
-          <WishList propMounted={this.state.stateMounted} />
+          <WishList
+            propMounted={this.state.stateMounted}
+            propDefaultCardName={this.state.stateDefaultWishCardName}
+          />
         )}
         {this.state.stateCurrentPage === 2 && (
           <MkmFetcher propMounted={this.state.stateMounted} />

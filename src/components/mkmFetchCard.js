@@ -5,7 +5,7 @@ class MKMFetcherCard extends MkmFetcher {
     super(props)
 
     this.state.stateDataList = []
-    this.localStorage = "KDOCardFetchList"
+    this.localStorage = "cards"
     // console.log("mkmfetcher2")
   }
 

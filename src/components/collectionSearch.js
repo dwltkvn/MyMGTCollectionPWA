@@ -129,7 +129,7 @@ class collectionSearch extends React.Component {
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
-    const { propMounted, data } = this.props
+    const { propMounted, data, cbGoToWishList } = this.props
     const classes = styles
 
     return (
@@ -188,7 +188,10 @@ class collectionSearch extends React.Component {
           </List>
 
           {this.state.stateSearching === 3 && (
-            <Button variant="outlined" onClick={() => this.addToWishList(data)}>
+            <Button
+              variant="outlined"
+              onClick={() => cbGoToWishList(this.refUserInput.value)}
+            >
               Add to Wishlist
             </Button>
           )}

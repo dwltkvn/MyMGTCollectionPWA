@@ -51,6 +51,7 @@ class WishList extends React.Component {
     this.state = {
       stateMounted: false,
       stateWishList: [],
+      stateDefaultCardName: props.propDefaultCardName,
     }
   }
 
@@ -129,7 +130,7 @@ class WishList extends React.Component {
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
-    const { propMounted } = this.props
+    const { propMounted, propDefaultCardName } = this.props
     const classes = styles
 
     return (
@@ -141,6 +142,7 @@ class WishList extends React.Component {
                 id="standard-basic"
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
+                value={this.state.stateDefaultCardName}
               />
               <IconButton
                 color="primary"
