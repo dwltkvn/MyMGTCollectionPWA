@@ -12,6 +12,9 @@ import Fade from "@material-ui/core/Fade"
 
 import AddIcon from "@material-ui/icons/Add"
 import DeleteIcon from "@material-ui/icons/Delete"
+
+import firebase from "../components/firebase"
+
 const styles = {
   mainLayout: {
     //height: "1vh",
@@ -53,16 +56,48 @@ class WishList extends React.Component {
 
   componentDidMount() {
     this.setState({ stateMounted: true })
-    const d = localStorage.getItem("KDOWishList")
+    /*const d = localStorage.getItem("KDOWishList")
     const w = JSON.parse(d)
-    if (d !== null && d !== "") this.setState({ stateWishList: w })
+    if (d !== null && d !== "") this.setState({ stateWishList: w })*/
+
+    firebase
+      .database()
+      .ref("/wishlist/")
+      .on("value", snapshot => {
+        let w = []
+        const data = snapshot.val()
+        const keys = Object.keys(data)
+        keys.forEach(key => {
+          const obj = data[key]
+          const obj2 = { ...obj, id: key }
+          w.unshift(obj2)
+          //console.log(obj2)
+        })
+        this.setState({ stateWishList: w })
+      })
   }
 
   componentWillUnmount() {
     //window.removeEventListener("event",this.handleEvent);
+    firebase
+      .database()
+      .ref("/wishlist/")
+      .off()
   }
 
   addToWishList() {
+    const ts = Date.now()
+    //console.log("test fb")
+    firebase
+      .database()
+      .ref("/wishlist/" + ts)
+      .set({
+        name: this.refUserInput.value,
+        comment: "",
+      })
+
+    this.refUserInput.value = ""
+    return
     const v = this.refUserInput.value
 
     let w = this.state.stateWishList
@@ -76,15 +111,19 @@ class WishList extends React.Component {
     )
   }
 
-  deteteFromWishList(idx) {
+  deteteFromWishList(id) {
     //console.log(idx)
-    let w = this.state.stateWishList
+    /*let w = this.state.stateWishList
     w.splice(idx, 1)
     this.setState({ stateWishList: w })
     localStorage.setItem(
       "KDOWishList",
       JSON.stringify(this.state.stateWishList)
-    )
+    )*/
+    firebase
+      .database()
+      .ref("/wishlist/" + id)
+      .set({})
   }
 
   render() {
@@ -116,14 +155,18 @@ class WishList extends React.Component {
           <List dense={true} style={classes.cardList}>
             {this.state.stateWishList.map((e, i) => {
               return (
-                <ListItem key={i}>
-                  <ListItemText primary={e} key={i} />
-                  <ListItemSecondaryAction key={i}>
+                <ListItem key={e.id}>
+                  <ListItemText
+                    primary={e.name}
+                    secondary={e.comment}
+                    key={e.id}
+                  />
+                  <ListItemSecondaryAction key={e.id}>
                     <IconButton
                       edge="end"
                       aria-label="delete"
-                      key={i}
-                      onClick={() => this.deteteFromWishList(i)}
+                      key={e.id}
+                      onClick={() => this.deteteFromWishList(e.id)}
                     >
                       <DeleteIcon key={i} />
                     </IconButton>
