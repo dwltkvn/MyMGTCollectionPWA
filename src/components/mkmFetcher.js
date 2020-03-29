@@ -156,7 +156,7 @@ class MKMFetcher extends React.Component {
           <List dense={true} style={classes.cardList}>
             {Object.keys(this.state.stateDataList).map((e, i) => {
               return (
-                <ListItem key={i} button onClick={() => this.fetchData(i)}>
+                <ListItem key={i} button onClick={() => this.fetchData(e)}>
                   <ListItemText
                     primary={e}
                     secondary={Object.values(this.state.stateDataList[e])

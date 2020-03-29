@@ -11,7 +11,7 @@ class MKMFetcherCard extends MkmFetcher {
 
   fetchData(idx) {
     //console.log("fetch from fetcher2")
-    const data = this.state.stateDataList[idx]
+    const data = idx //this.state.stateDataList[idx]
     if (data === "") return
 
     fetch("./.netlify/functions/mkmcards?lang=en&card=" + data).then(response =>

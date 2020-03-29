@@ -11,7 +11,7 @@ class MKMFetcherSeller2 extends MkmFetcher {
 
   fetchData(idx) {
     //console.log("fetch from fetcher2")
-    const data = this.state.stateDataList[idx]
+    const data = idx //this.state.stateDataList[idx]
     if (data === "") return
 
     fetch("./.netlify/functions/mkmseller?seller=" + data).then(response =>
