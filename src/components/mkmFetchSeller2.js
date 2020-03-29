@@ -15,7 +15,15 @@ class MKMFetcherSeller2 extends MkmFetcher {
     if (data === "") return
 
     fetch("./.netlify/functions/mkmseller?seller=" + data).then(response =>
-      response.json().then(json => this.setState({ stateResult: json.nbcards }))
+      response.json().then(json => {
+        this.setState({ stateResult: json.nbcards })
+        let d = this.state.stateDataList[data]
+        const ts = Date.now()
+        const obj = {}
+        obj[ts] = json.nbcards
+        d = { ...d, ...obj }
+        super.AddFetchData(data, d)
+      })
     )
   }
 }

@@ -15,11 +15,15 @@ class MKMFetcherCard extends MkmFetcher {
     if (data === "") return
 
     fetch("./.netlify/functions/mkmcards?lang=en&card=" + data).then(response =>
-      response
-        .json()
-        .then(json =>
-          this.setState({ stateResult: json.seller + " : " + json.price })
-        )
+      response.json().then(json => {
+        this.setState({ stateResult: json.seller + " : " + json.price })
+        let d = this.state.stateDataList[data]
+        const ts = Date.now()
+        const obj = {}
+        obj[ts] = json.price
+        d = { ...d, ...obj }
+        super.AddFetchData(data, d)
+      })
     )
   }
 
@@ -31,7 +35,9 @@ class MKMFetcherCard extends MkmFetcher {
       .replace(/'/g, "")
       .replace(/,/g, "")
 
-    data.unshift(input)
+    this.refInput.value = input
+    super.addData()
+    /*data.unshift(input)
     this.setState({ stateDataList: data })
 
     this.refInput.value = ""
@@ -39,7 +45,7 @@ class MKMFetcherCard extends MkmFetcher {
     localStorage.setItem(
       this.localStorage,
       JSON.stringify(this.state.stateDataList)
-    )
+    )*/
   }
 }
 

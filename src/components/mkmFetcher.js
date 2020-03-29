@@ -104,7 +104,7 @@ class MKMFetcher extends React.Component {
   }
 
   addData() {
-    let data = this.state.stateDataList
+    /*let data = this.state.stateDataList
     data.unshift(this.refInput.value)
     this.setState({ stateDataList: data })
 
@@ -112,19 +112,37 @@ class MKMFetcher extends React.Component {
     localStorage.setItem(
       this.localStorage,
       JSON.stringify(this.state.stateDataList)
-    )
+    )*/
+    const ts = Date.now()
+    firebase
+      .database()
+      .ref("/" + this.localStorage + "/" + this.refInput.value)
+      .set({
+        0: 0,
+      })
+    this.refInput.value = ""
   }
 
+  AddFetchData(seller, data) {
+    firebase
+      .database()
+      .ref("/" + this.localStorage + "/" + seller)
+      .set(data)
+  }
   deleteData(idx) {
     //console.log(idx)
-    let w = this.state.stateDataList
+    /*let w = this.state.stateDataList
     w.splice(idx, 1)
     this.setState({ stateSellerList: w })
 
     localStorage.setItem(
       this.localStorage,
       JSON.stringify(this.state.stateDataList)
-    )
+    )*/
+    firebase
+      .database()
+      .ref("/" + this.localStorage + "/" + idx)
+      .set({})
   }
 
   render() {
@@ -169,7 +187,7 @@ class MKMFetcher extends React.Component {
                       edge="end"
                       aria-label="delete"
                       key={i}
-                      onClick={() => this.deleteData(i)}
+                      onClick={() => this.deleteData(e)}
                     >
                       <DeleteIcon key={i} />
                     </IconButton>
