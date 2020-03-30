@@ -28,7 +28,7 @@ class IndexPage extends React.Component {
       stateDisplayInstallBtn: false,
       stateUpdateAvailable: false,
       stateCurrentPage: 0,
-      stateDefaultWishCardName: "",
+      stateDefaultWishCardName: undefined,
     }
   }
 

@@ -21,8 +21,14 @@ class MKMFetcherCard extends MkmFetcher {
         const ts = Date.now()
         const obj = {}
         obj[ts] = json.price
-        d = { ...d, ...obj }
-        super.AddFetchData(data, d)
+
+        const keys = Object.keys(d)
+        const lastKey = keys[keys.length - 1]
+
+        if (d[lastKey] !== json.price) {
+          d = { ...d, ...obj }
+          super.AddFetchData(data, d)
+        }
       })
     )
   }

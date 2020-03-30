@@ -98,29 +98,9 @@ class WishList extends React.Component {
       })
 
     this.refUserInput.value = ""
-    return
-    const v = this.refUserInput.value
-
-    let w = this.state.stateWishList
-    w.unshift(v)
-    this.setState({ stateWishList: w })
-
-    this.refUserInput.value = ""
-    localStorage.setItem(
-      "KDOWishList",
-      JSON.stringify(this.state.stateWishList)
-    )
   }
 
   deteteFromWishList(id) {
-    //console.log(idx)
-    /*let w = this.state.stateWishList
-    w.splice(idx, 1)
-    this.setState({ stateWishList: w })
-    localStorage.setItem(
-      "KDOWishList",
-      JSON.stringify(this.state.stateWishList)
-    )*/
     firebase
       .database()
       .ref("/wishlist/" + id)
@@ -142,7 +122,11 @@ class WishList extends React.Component {
                 id="standard-basic"
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
-                value={this.state.stateDefaultCardName}
+                value={
+                  this.state.stateDefaultCardName.length > 0
+                    ? this.state.stateDefaultCardName
+                    : undefined
+                }
               />
               <IconButton
                 color="primary"
