@@ -12,7 +12,7 @@ class MKMFetcherCard extends MkmFetcher {
   fetchData(idx) {
     //console.log("fetch from fetcher2")
     let data = idx //this.state.stateDataList[idx]
-    if (data === "") {
+    if (data === "" || data === undefined) {
       data = this.refInput.value
       data = data
         .replace(/ /g, "-")
