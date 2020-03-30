@@ -44,10 +44,16 @@ class MKMFetchComponent extends React.Component {
             color="primary"
             aria-label="outlined primary button group"
           >
-            <Button onClick={() => this.setState({ stateCurrentFetcher: 0 })}>
+            <Button
+              variant={this.state.stateCurrentFetcher === 0 ? "contained" : ""}
+              onClick={() => this.setState({ stateCurrentFetcher: 0 })}
+            >
               Seller
             </Button>
-            <Button onClick={() => this.setState({ stateCurrentFetcher: 1 })}>
+            <Button
+              variant={this.state.stateCurrentFetcher === 1 ? "contained" : ""}
+              onClick={() => this.setState({ stateCurrentFetcher: 1 })}
+            >
               Cards
             </Button>
             <Button>...</Button>

@@ -12,6 +12,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction"
 import IconButton from "@material-ui/core/IconButton"
 import DeleteIcon from "@material-ui/icons/Delete"
 import AddIcon from "@material-ui/icons/Add"
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline"
 
 import firebase from "../components/firebase"
 
@@ -168,6 +169,14 @@ class MKMFetcher extends React.Component {
                 onClick={() => this.addData()}
               >
                 <AddIcon />
+              </IconButton>
+              <IconButton
+                color="primary"
+                aria-label="add data"
+                component="span"
+                onClick={() => this.fetchData()}
+              >
+                <HelpOutlineIcon />
               </IconButton>
             </div>
           </form>

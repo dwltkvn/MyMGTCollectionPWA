@@ -11,8 +11,14 @@ class MKMFetcherCard extends MkmFetcher {
 
   fetchData(idx) {
     //console.log("fetch from fetcher2")
-    const data = idx //this.state.stateDataList[idx]
-    if (data === "") return
+    let data = idx //this.state.stateDataList[idx]
+    if (data === "") {
+      data = this.refInput.value
+      data = data
+        .replace(/ /g, "-")
+        .replace(/'/g, "")
+        .replace(/,/g, "")
+    }
 
     fetch("./.netlify/functions/mkmcards?lang=en&card=" + data).then(response =>
       response.json().then(json => {

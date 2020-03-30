@@ -11,8 +11,8 @@ class MKMFetcherSeller2 extends MkmFetcher {
 
   fetchData(idx) {
     //console.log("fetch from fetcher2")
-    const data = idx //this.state.stateDataList[idx]
-    if (data === "") return
+    let data = idx //this.state.stateDataList[idx]
+    if (data === "") data = this.refInput.value
 
     /*
     let d = this.state.stateDataList[data]
