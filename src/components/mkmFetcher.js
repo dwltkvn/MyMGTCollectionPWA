@@ -197,6 +197,17 @@ class MKMFetcher extends React.Component {
           </form>
           <List dense={true} style={classes.cardList}>
             {Object.keys(this.state.stateDataList).map((e, i) => {
+              const list = Object.values(this.state.stateDataList[e])
+              const keys = Object.keys(this.state.stateDataList[e])
+              const lastDate = keys[keys.length - 1]
+              const nowDate = Date.now()
+              const diffTime = Math.abs(nowDate - lastDate)
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+              //console.log(diffDays + " " + e)
+              let secondaryTxt = list.slice(-5).join(",")
+              if (diffDays <= 1)
+                secondaryTxt = <b>{list.slice(-5).join(",")}</b>
+
               return (
                 <ListItem
                   key={i}
@@ -208,13 +219,7 @@ class MKMFetcher extends React.Component {
                   onTouchStart={() => this.handleButtonPress(e)}
                   onTouchEnd={() => this.handleButtonRelease(e)}
                 >
-                  <ListItemText
-                    primary={e}
-                    secondary={Object.values(this.state.stateDataList[e])
-                      .slice(-5)
-                      .join(",")}
-                    key={i}
-                  />
+                  <ListItemText primary={e} secondary={secondaryTxt} key={i} />
                   <ListItemSecondaryAction key={i}>
                     <IconButton
                       edge="end"
