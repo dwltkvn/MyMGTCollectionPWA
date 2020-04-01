@@ -105,11 +105,11 @@ class MKMFetcher extends React.Component {
   }
 
   handleButtonRelease(e) {
-    const longPress = this.state.stateLongPress === 1
+    //const longPress = this.state.stateLongPress === 1
     clearTimeout(this.buttonPressTimer)
     this.buttonPressTimer = undefined
     this.setState({ stateLongPress: 0 })
-    if (longPress) this.fetchData(e)
+    //if (longPress) this.fetchData(e)
   }
 
   longPress(data) {}
@@ -198,7 +198,7 @@ class MKMFetcher extends React.Component {
                 <ListItem
                   key={i}
                   button
-                  /*onClick={() => this.fetchData(e)}*/
+                  onClick={() => this.fetchData(e)}
                   onMouseDown={() => this.handleButtonPress(e)}
                   onMouseUp={() => this.handleButtonRelease(e)}
                   onMouseLeave={() => this.handleButtonRelease(e)}
