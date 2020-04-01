@@ -9,6 +9,10 @@ class MKMFetcherCard extends MkmFetcher {
     // console.log("mkmfetcher2")
   }
 
+  longPress(data) {
+    window.open("https://www.cardmarket.com/en/Magic/Cards/" + data, "_blank")
+  }
+
   fetchData(idx) {
     //console.log("fetch from fetcher2")
     let data = idx //this.state.stateDataList[idx]

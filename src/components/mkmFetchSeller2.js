@@ -6,20 +6,16 @@ class MKMFetcherSeller2 extends MkmFetcher {
 
     this.state.stateDataList = []
     this.localStorage = "seller"
-    // console.log("mkmfetcher2")
+  }
+
+  longPress(data) {
+    window.open("https://www.cardmarket.com/en/Magic/Users/" + data, "_blank")
   }
 
   fetchData(idx) {
     //console.log("fetch from fetcher2")
     let data = idx //this.state.stateDataList[idx]
     if (data === "" || data === undefined) data = this.refInput.value
-    console.log(data)
-    /*
-    let d = this.state.stateDataList[data]
-    const keys = Object.keys(d)
-    const lastKey = keys[keys.length - 1]
-    return
-    */
 
     fetch("./.netlify/functions/mkmseller?seller=" + data).then(response =>
       response.json().then(json => {

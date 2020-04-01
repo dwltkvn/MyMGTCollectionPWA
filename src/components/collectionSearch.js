@@ -45,6 +45,7 @@ class collectionSearch extends React.Component {
     this.searchCard = this.searchCard.bind(this)
     this.containsText = this.containsText.bind(this)
     this.addToWishList = this.addToWishList.bind(this)
+    this.handleButtonPress = this.handleButtonPress.bind(this)
     this.state = {
       stateSearchResult: [],
       stateMounted: false,
@@ -126,6 +127,11 @@ class collectionSearch extends React.Component {
     this.setState({ stateSearching: 0 }) // restore the search state
   }
 
+  handleButtonPress() {
+    console.log("touch")
+    window.open("someLink", "_blank")
+  }
+
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
@@ -157,7 +163,12 @@ class collectionSearch extends React.Component {
                 color="primary"
                 aria-label="outlined primary button group"
               >
-                <Button onClick={() => this.searchCard(data)}>Search</Button>
+                <Button
+                  onClick={() => this.searchCard(data)}
+                  onMouseDown={this.handleButtonPress}
+                >
+                  Search
+                </Button>
                 <Button onClick={() => this.containsText(data)}>
                   Contains
                 </Button>

@@ -50,11 +50,15 @@ class MKMFetcher extends React.Component {
     this.fetchData = this.fetchData.bind(this)
     this.addData = this.addData.bind(this)
     this.deleteData = this.deleteData.bind(this)
+    this.handleButtonPress = this.handleButtonPress.bind(this)
+    this.handleButtonRelease = this.handleButtonRelease.bind(this)
+    this.buttonPressTimer = undefined
     this.localStorage = "KDO"
     this.state = {
       stateMounted: false,
       stateResult: "1",
       stateDataList: [],
+      stateLongPress: 0, // 0:not cliked, 1: pressed, 2: long pressed
     }
   }
 
@@ -92,17 +96,24 @@ class MKMFetcher extends React.Component {
     //window.removeEventListener("event",this.handleEvent);
   }
 
-  fetchData(idx) {
-    //console.log("fetch from fetcher1")
-    /*const data = this.state.stateDataList[idx]
-    if (data === "") return
-
-    fetch("./.netlify/functions/mkmseller?seller=" + data).then(response =>
-      response
-        .json()
-        .then(json => this.setState({ stateCardCount: json.nbcards }))
-    )*/
+  handleButtonPress(e) {
+    this.setState({ stateLongPress: 1 })
+    this.buttonPressTimer = setTimeout(() => {
+      this.longPress(e)
+      this.setState({ stateLongPress: 2 })
+    }, 1500)
   }
+
+  handleButtonRelease(e) {
+    clearTimeout(this.buttonPressTimer)
+    this.buttonPressTimer = undefined
+    if (this.state.stateLongPress === 1) this.fetchData(e)
+    this.setState({ stateLongPress: 0 })
+  }
+
+  longPress(data) {}
+
+  fetchData(idx) {}
 
   addData() {
     /*let data = this.state.stateDataList
@@ -183,7 +194,16 @@ class MKMFetcher extends React.Component {
           <List dense={true} style={classes.cardList}>
             {Object.keys(this.state.stateDataList).map((e, i) => {
               return (
-                <ListItem key={i} button onClick={() => this.fetchData(e)}>
+                <ListItem
+                  key={i}
+                  button
+                  /*onClick={() => this.fetchData(e)}*/
+                  onMouseDown={() => this.handleButtonPress(e)}
+                  onMouseUp={() => this.handleButtonRelease(e)}
+                  onMouseLeave={() => this.handleButtonRelease(e)}
+                  onTouchStart={() => this.handleButtonPress(e)}
+                  onTouchEnd={() => this.handleButtonRelease(e)}
+                >
                   <ListItemText
                     primary={e}
                     secondary={Object.values(this.state.stateDataList[e])
