@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton"
 import DeleteIcon from "@material-ui/icons/Delete"
 import AddIcon from "@material-ui/icons/Add"
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline"
+import GetAppIcon from "@material-ui/icons/GetApp"
 
 import firebase from "../components/firebase"
 
@@ -47,6 +48,7 @@ class MKMFetcher extends React.Component {
   constructor(props) {
     super(props)
     // this.handeEvent = this.handleEvent.bind(this);
+    this.fetchAllData = this.fetchAllData.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.addData = this.addData.bind(this)
     this.deleteData = this.deleteData.bind(this)
@@ -54,6 +56,7 @@ class MKMFetcher extends React.Component {
     this.handleButtonRelease = this.handleButtonRelease.bind(this)
     this.buttonPressTimer = undefined
     this.localStorage = "KDO"
+    this.currentFetchIdx = -1
     this.state = {
       stateMounted: false,
       stateResult: "1",
@@ -65,10 +68,6 @@ class MKMFetcher extends React.Component {
   componentDidMount() {
     this.setState({ stateMounted: true })
 
-    /*const d = localStorage.getItem(this.localStorage)
-    const w = JSON.parse(d)
-    if (d !== null && d !== "") this.setState({ stateDataList: w })*/
-
     firebase
       .database()
       .ref("/" + this.localStorage + "/")
@@ -76,18 +75,6 @@ class MKMFetcher extends React.Component {
         let w = {}
         const data = snapshot.val()
         w = data
-        /*const keys = Object.keys(
-          data
-        ) 
-        keys.forEach(key => {
-          let obj = {}
-          //obj[key] = data[key]
-          //const obj2 = { ...obj, id: key }
-          //w.unshift(obj)
-          //w = { ...w, obj }
-          w[key] = data[key]
-          //console.log(obj2)
-        })*/
         this.setState({ stateDataList: w })
       })
   }
@@ -113,6 +100,14 @@ class MKMFetcher extends React.Component {
   }
 
   longPress(data) {}
+
+  fetchAllData() {
+    const keys = Object.keys(this.state.stateDataList)
+    this.currentFetchIdx++
+    if (this.currentFetchIdx < keys.length)
+      this.fetchData(keys[this.currentFetchIdx])
+    else this.currentFetchIdx = -1
+  }
 
   fetchData(idx) {}
 
@@ -189,6 +184,14 @@ class MKMFetcher extends React.Component {
                 onClick={() => this.fetchData()}
               >
                 <HelpOutlineIcon />
+              </IconButton>
+              <IconButton
+                color="primary"
+                aria-label="add data"
+                component="span"
+                onClick={() => this.fetchAllData()}
+              >
+                <GetAppIcon />
               </IconButton>
             </div>
           </form>

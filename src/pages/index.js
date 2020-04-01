@@ -39,7 +39,7 @@ class IndexPage extends React.Component {
       this.handleBeforeInstallPrompt
     )
     this.checkForUpdate()
-    console.log(this.data.allDataJson.nodes[0].lists.Lands[0])
+    //console.log(this.data.allDataJson.nodes[0].lists.Lands[0])
   }
 
   componentWillUnmount() {

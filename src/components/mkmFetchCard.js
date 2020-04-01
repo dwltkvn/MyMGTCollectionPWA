@@ -14,6 +14,7 @@ class MKMFetcherCard extends MkmFetcher {
   }
 
   fetchData(idx) {
+    super.fetchData(idx)
     //console.log("fetch from fetcher2")
     let data = idx //this.state.stateDataList[idx]
     if (data === "" || data === undefined) {
@@ -26,7 +27,10 @@ class MKMFetcherCard extends MkmFetcher {
 
     fetch("./.netlify/functions/mkmcards?lang=en&card=" + data).then(response =>
       response.json().then(json => {
-        this.setState({ stateResult: json.seller + " : " + json.price })
+        this.setState({
+          stateResult: json.seller + " : " + json.price,
+          stateFetchRunning: false,
+        })
         let d = this.state.stateDataList[data]
         const ts = Date.now()
         const obj = {}
@@ -39,6 +43,7 @@ class MKMFetcherCard extends MkmFetcher {
           d = { ...d, ...obj }
           super.AddFetchData(data, d)
         }
+        this.fetchAllData()
       })
     )
   }
