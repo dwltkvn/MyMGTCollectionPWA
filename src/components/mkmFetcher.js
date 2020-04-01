@@ -99,16 +99,17 @@ class MKMFetcher extends React.Component {
   handleButtonPress(e) {
     this.setState({ stateLongPress: 1 })
     this.buttonPressTimer = setTimeout(() => {
-      this.longPress(e)
       this.setState({ stateLongPress: 2 })
+      this.longPress(e)
     }, 1500)
   }
 
   handleButtonRelease(e) {
+    const longPress = this.state.stateLongPress === 1
     clearTimeout(this.buttonPressTimer)
     this.buttonPressTimer = undefined
-    if (this.state.stateLongPress === 1) this.fetchData(e)
     this.setState({ stateLongPress: 0 })
+    if (longPress) this.fetchData(e)
   }
 
   longPress(data) {}
