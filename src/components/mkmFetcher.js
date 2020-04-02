@@ -58,12 +58,12 @@ class MKMFetcher extends React.Component {
     this.buttonPressTimer = undefined
     this.localStorage = "KDO"
     this.currentFetchIdx = -1
+    this.fetchAllData = false
     this.state = {
       stateMounted: false,
       stateResult: "1",
       stateDataList: [],
       stateLongPress: 0, // 0:not cliked, 1: pressed, 2: long pressed
-      stateFetchAllData: false,
     }
   }
 
@@ -104,14 +104,14 @@ class MKMFetcher extends React.Component {
   longPress(data) {}
 
   fetchAllData() {
-    if (this.state.stateFetchAllData) {
+    if (this.fetchAllData) {
       const keys = Object.keys(this.state.stateDataList)
       this.currentFetchIdx++
       if (this.currentFetchIdx < keys.length)
         this.fetchData(keys[this.currentFetchIdx])
       else {
         this.currentFetchIdx = -1
-        this.setState({ stateFetchAllData: false })
+        this.fetchAllData = false
       }
     }
   }
@@ -190,27 +190,26 @@ class MKMFetcher extends React.Component {
                       aria-label="add data"
                       component="span"
                       onClick={() => {
-                        this.setState({ stateFetchAllData: false })
+                        this.fetchAllData = false
                         this.fetchData()
                       }}
                     >
                       <HelpOutlineIcon />
                     </IconButton>
+                    <IconButton
+                      color="primary"
+                      aria-label="add data"
+                      component="span"
+                      onClick={() => {
+                        this.fetchAllData = true
+                        this.fetchAllData()
+                      }}
+                    >
+                      <GetAppIcon />
+                    </IconButton>
                   </InputAdornment>
                 }
               />
-
-              <IconButton
-                color="primary"
-                aria-label="add data"
-                component="span"
-                onClick={() => {
-                  this.setState({ stateFetchAllData: true })
-                  this.fetchAllData()
-                }}
-              >
-                <GetAppIcon />
-              </IconButton>
             </div>
           </form>
           <List dense={true} style={classes.cardList}>
@@ -231,7 +230,7 @@ class MKMFetcher extends React.Component {
                   key={i}
                   button
                   onClick={() => {
-                    this.setState({ stateFetchAllData: false })
+                    this.fetchAllData = false
                     this.fetchData(e)
                   }}
                   onMouseDown={() => this.handleButtonPress(e)}
