@@ -58,7 +58,7 @@ class MKMFetcher extends React.Component {
     this.buttonPressTimer = undefined
     this.localStorage = "KDO"
     this.currentFetchIdx = -1
-    this.fetchAllData = false
+    this.fetchingAllData = false
     this.state = {
       stateMounted: false,
       stateResult: "1",
@@ -104,14 +104,14 @@ class MKMFetcher extends React.Component {
   longPress(data) {}
 
   fetchAllData() {
-    if (this.fetchAllData) {
+    if (this.fetchingAllData) {
       const keys = Object.keys(this.state.stateDataList)
       this.currentFetchIdx++
       if (this.currentFetchIdx < keys.length)
         this.fetchData(keys[this.currentFetchIdx])
       else {
         this.currentFetchIdx = -1
-        this.fetchAllData = false
+        this.fetchingAllData = false
       }
     }
   }
@@ -190,7 +190,7 @@ class MKMFetcher extends React.Component {
                       aria-label="add data"
                       component="span"
                       onClick={() => {
-                        this.fetchAllData = false
+                        this.fetchingAllData = false
                         this.fetchData()
                       }}
                     >
@@ -201,7 +201,7 @@ class MKMFetcher extends React.Component {
                       aria-label="add data"
                       component="span"
                       onClick={() => {
-                        this.fetchAllData = true
+                        this.fetchingAllData = true
                         this.fetchAllData()
                       }}
                     >
@@ -230,7 +230,7 @@ class MKMFetcher extends React.Component {
                   key={i}
                   button
                   onClick={() => {
-                    this.fetchAllData = false
+                    this.fetchingAllData = false
                     this.fetchData(e)
                   }}
                   onMouseDown={() => this.handleButtonPress(e)}
