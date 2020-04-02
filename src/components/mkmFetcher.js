@@ -1,9 +1,10 @@
 import React from "react"
 
+import Input from "@material-ui/core/Input"
 import TextField from "@material-ui/core/TextField"
 import Fade from "@material-ui/core/Fade"
 import Paper from "@material-ui/core/Paper"
-
+import InputAdornment from "@material-ui/core/InputAdornment"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
@@ -170,30 +171,35 @@ class MKMFetcher extends React.Component {
         <div style={classes.mainLayout}>
           <form noValidate autoComplete="off" style={classes.myForm}>
             <div>
-              <TextField
+              <Input
                 id="standard-basic"
-                label="Input"
+                label="Input2"
                 inputRef={el => (this.refInput = el)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      color="primary"
+                      aria-label="add data"
+                      component="span"
+                      onClick={() => this.addData()}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                    <IconButton
+                      color="primary"
+                      aria-label="add data"
+                      component="span"
+                      onClick={() => {
+                        this.setState({ stateFetchAllData: false })
+                        this.fetchData()
+                      }}
+                    >
+                      <HelpOutlineIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
-              <IconButton
-                color="primary"
-                aria-label="add data"
-                component="span"
-                onClick={() => this.addData()}
-              >
-                <AddIcon />
-              </IconButton>
-              <IconButton
-                color="primary"
-                aria-label="add data"
-                component="span"
-                onClick={() => {
-                  this.setState({ stateFetchAllData: false })
-                  this.fetchData()
-                }}
-              >
-                <HelpOutlineIcon />
-              </IconButton>
+
               <IconButton
                 color="primary"
                 aria-label="add data"
