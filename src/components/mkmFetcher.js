@@ -62,6 +62,7 @@ class MKMFetcher extends React.Component {
       stateResult: "1",
       stateDataList: [],
       stateLongPress: 0, // 0:not cliked, 1: pressed, 2: long pressed
+      stateFetchAllData: false,
     }
   }
 
@@ -102,11 +103,16 @@ class MKMFetcher extends React.Component {
   longPress(data) {}
 
   fetchAllData() {
-    const keys = Object.keys(this.state.stateDataList)
-    this.currentFetchIdx++
-    if (this.currentFetchIdx < keys.length)
-      this.fetchData(keys[this.currentFetchIdx])
-    else this.currentFetchIdx = -1
+    if (this.state.stateFetchAllData) {
+      const keys = Object.keys(this.state.stateDataList)
+      this.currentFetchIdx++
+      if (this.currentFetchIdx < keys.length)
+        this.fetchData(keys[this.currentFetchIdx])
+      else {
+        this.currentFetchIdx = -1
+        this.setState({ stateFetchAllData: false })
+      }
+    }
   }
 
   fetchData(idx) {}
@@ -202,17 +208,20 @@ class MKMFetcher extends React.Component {
               const lastDate = keys[keys.length - 1]
               const nowDate = Date.now()
               const diffTime = Math.abs(nowDate - lastDate)
-              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+              const diffDays = diffTime / (1000 * 60 * 60 * 24)
               //console.log(diffDays + " " + e)
               let secondaryTxt = list.slice(-5).join(",")
-              if (diffDays <= 1)
+              if (diffDays <= 0.5)
                 secondaryTxt = <b>{list.slice(-5).join(",")}</b>
 
               return (
                 <ListItem
                   key={i}
                   button
-                  onClick={() => this.fetchData(e)}
+                  onClick={() => {
+                    this.setState({ stateFetchAllData: true })
+                    this.fetchData(e)
+                  }}
                   onMouseDown={() => this.handleButtonPress(e)}
                   onMouseUp={() => this.handleButtonRelease(e)}
                   onMouseLeave={() => this.handleButtonRelease(e)}
