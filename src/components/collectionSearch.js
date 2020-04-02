@@ -45,7 +45,6 @@ class collectionSearch extends React.Component {
     this.searchCard = this.searchCard.bind(this)
     this.containsText = this.containsText.bind(this)
     this.addToWishList = this.addToWishList.bind(this)
-    this.handleButtonPress = this.handleButtonPress.bind(this)
     this.state = {
       stateSearchResult: [],
       stateMounted: false,
