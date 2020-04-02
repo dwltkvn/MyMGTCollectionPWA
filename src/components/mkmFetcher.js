@@ -187,7 +187,10 @@ class MKMFetcher extends React.Component {
                 color="primary"
                 aria-label="add data"
                 component="span"
-                onClick={() => this.fetchData()}
+                onClick={() => {
+                  this.setState({ stateFetchAllData: false })
+                  this.fetchData()
+                }}
               >
                 <HelpOutlineIcon />
               </IconButton>
@@ -195,7 +198,10 @@ class MKMFetcher extends React.Component {
                 color="primary"
                 aria-label="add data"
                 component="span"
-                onClick={() => this.fetchAllData()}
+                onClick={() => {
+                  this.setState({ stateFetchAllData: true })
+                  this.fetchAllData()
+                }}
               >
                 <GetAppIcon />
               </IconButton>
@@ -219,7 +225,7 @@ class MKMFetcher extends React.Component {
                   key={i}
                   button
                   onClick={() => {
-                    this.setState({ stateFetchAllData: true })
+                    this.setState({ stateFetchAllData: false })
                     this.fetchData(e)
                   }}
                   onMouseDown={() => this.handleButtonPress(e)}
