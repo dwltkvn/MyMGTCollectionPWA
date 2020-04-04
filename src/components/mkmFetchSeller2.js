@@ -29,7 +29,7 @@ class MKMFetcherSeller2 extends MkmFetcher {
         const keys = Object.keys(d)
         const lastKey = keys[keys.length - 1]
 
-        if (d[lastKey] !== json.nbcards) {
+        if (d[lastKey].text !== json.nbcards) {
           d = { ...d, ...obj }
           super.AddFetchData(data, d)
         }

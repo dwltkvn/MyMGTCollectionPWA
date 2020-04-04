@@ -39,7 +39,7 @@ class MKMFetcherCard extends MkmFetcher {
         const keys = Object.keys(d)
         const lastKey = keys[keys.length - 1]
 
-        if (d[lastKey] !== json.price) {
+        if (d[lastKey].text !== json.price) {
           d = { ...d, ...obj }
           super.AddFetchData(data, d)
         }
