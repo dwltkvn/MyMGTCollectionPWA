@@ -34,7 +34,7 @@ class MKMFetcherCard extends MkmFetcher {
         let d = this.state.stateDataList[data]
         const ts = Date.now()
         const obj = {}
-        obj[ts] = json.price
+        obj[ts] = { text: json.price }
 
         const keys = Object.keys(d)
         const lastKey = keys[keys.length - 1]

@@ -139,7 +139,7 @@ class MKMFetcher extends React.Component {
           this.refInput.value
       )
       .set({
-        0: 0,
+        0: { text: 0 },
       })
     this.refInput.value = ""
   }
@@ -212,16 +212,19 @@ class MKMFetcher extends React.Component {
           </form>
           <List dense={true} style={classes.cardList}>
             {Object.keys(this.state.stateDataList).map((e, i) => {
-              const list = Object.values(this.state.stateDataList[e])
-              const keys = Object.keys(this.state.stateDataList[e])
-              const lastDate = keys[keys.length - 1]
               const nowDate = Date.now()
-              const diffTime = Math.abs(nowDate - lastDate)
-              const diffDays = diffTime / (1000 * 60 * 60 * 24)
-              //console.log(diffDays + " " + e)
-              let secondaryTxt = list.slice(-5).join(",")
-              if (diffDays <= 0.5)
-                secondaryTxt = <b>{list.slice(-5).join(",")}</b>
+              const entries = Object.entries(this.state.stateDataList[e])
+              let secondaryTxt = (
+                <>
+                  {entries.slice(-5).map((elem, i) => {
+                    const diffTime = Math.abs(nowDate - elem[0])
+                    const diffDays = diffTime / (1000 * 60 * 60 * 24)
+                    if (diffDays <= 0.5)
+                      return <b key={i}>{elem[1].text + " "}</b>
+                    else return <i key={i}>{elem[1].text + " "}</i>
+                  })}
+                </>
+              )
 
               return (
                 <ListItem

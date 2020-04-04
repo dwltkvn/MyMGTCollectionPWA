@@ -24,7 +24,7 @@ class MKMFetcherSeller2 extends MkmFetcher {
         let d = this.state.stateDataList[data]
         const ts = Date.now()
         const obj = {}
-        obj[ts] = json.nbcards
+        obj[ts] = { text: json.nbcards }
 
         const keys = Object.keys(d)
         const lastKey = keys[keys.length - 1]
