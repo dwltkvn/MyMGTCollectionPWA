@@ -59,12 +59,14 @@ class MKMFetcher extends React.Component {
     this.localStorage = "KDO"
     this.currentFetchIdx = -1
     this.fetchingAllData = false
+    this.userName = props.propUserName
     this.state = {
       stateMounted: false,
       stateResult: "1",
       stateDataList: [],
       stateLongPress: 0, // 0:not cliked, 1: pressed, 2: long pressed
     }
+    console.log(props.propUserName)
   }
 
   componentDidMount() {
@@ -72,17 +74,23 @@ class MKMFetcher extends React.Component {
 
     firebase
       .database()
-      .ref("/" + this.localStorage + "/")
+      .ref("/" + this.userName + "/" + this.localStorage + "/")
       .on("value", snapshot => {
         let w = {}
-        const data = snapshot.val()
-        w = data
+        if (snapshot.val()) {
+          const data = snapshot.val()
+          w = data
+        }
         this.setState({ stateDataList: w })
       })
   }
 
   componentWillUnmount() {
     //window.removeEventListener("event",this.handleEvent);
+    firebase
+      .database()
+      .ref("/" + this.userName + "/" + this.localStorage + "/")
+      .off()
   }
 
   handleButtonPress(e) {
@@ -119,19 +127,17 @@ class MKMFetcher extends React.Component {
   fetchData(idx) {}
 
   addData() {
-    /*let data = this.state.stateDataList
-    data.unshift(this.refInput.value)
-    this.setState({ stateDataList: data })
-
-    this.refInput.value = ""
-    localStorage.setItem(
-      this.localStorage,
-      JSON.stringify(this.state.stateDataList)
-    )*/
     const ts = Date.now()
     firebase
       .database()
-      .ref("/" + this.localStorage + "/" + this.refInput.value)
+      .ref(
+        "/" +
+          this.userName +
+          "/" +
+          this.localStorage +
+          "/" +
+          this.refInput.value
+      )
       .set({
         0: 0,
       })
@@ -141,22 +147,14 @@ class MKMFetcher extends React.Component {
   AddFetchData(seller, data) {
     firebase
       .database()
-      .ref("/" + this.localStorage + "/" + seller)
+      .ref("/" + this.userName + "/" + this.localStorage + "/" + seller)
       .set(data)
   }
-  deleteData(idx) {
-    //console.log(idx)
-    /*let w = this.state.stateDataList
-    w.splice(idx, 1)
-    this.setState({ stateSellerList: w })
 
-    localStorage.setItem(
-      this.localStorage,
-      JSON.stringify(this.state.stateDataList)
-    )*/
+  deleteData(idx) {
     firebase
       .database()
-      .ref("/" + this.localStorage + "/" + idx)
+      .ref("/" + this.userName + "/" + this.localStorage + "/" + idx)
       .set({})
   }
 

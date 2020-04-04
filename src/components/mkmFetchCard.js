@@ -58,15 +58,6 @@ class MKMFetcherCard extends MkmFetcher {
 
     this.refInput.value = input
     super.addData()
-    /*data.unshift(input)
-    this.setState({ stateDataList: data })
-
-    this.refInput.value = ""
-
-    localStorage.setItem(
-      this.localStorage,
-      JSON.stringify(this.state.stateDataList)
-    )*/
   }
 }
 

@@ -48,6 +48,7 @@ class WishList extends React.Component {
     // this.handeEvent = this.handleEvent.bind(this);
     this.addToWishList = this.addToWishList.bind(this)
     this.deteteFromWishList = this.deteteFromWishList.bind(this)
+    this.userName = props.propUserName
     this.state = {
       stateMounted: false,
       stateWishList: [],
@@ -63,26 +64,44 @@ class WishList extends React.Component {
 
     firebase
       .database()
-      .ref("/wishlist/")
+      .ref(this.userName + "/wishlist/")
       .on("value", snapshot => {
         let w = []
-        const data = snapshot.val()
-        const keys = Object.keys(data)
-        keys.forEach(key => {
-          const obj = data[key]
-          const obj2 = { ...obj, id: key }
-          w.unshift(obj2)
-          //console.log(obj2)
-        })
+        if (snapshot.val()) {
+          const data = snapshot.val()
+          const keys = Object.keys(data)
+          keys.forEach(key => {
+            const obj = data[key]
+            const obj2 = { ...obj, id: key }
+            w.unshift(obj2)
+            //console.log(obj2)
+          })
+        }
         this.setState({ stateWishList: w })
       })
+
+    // transfer
+    /*firebase
+      .database()
+      .ref("/wishlist/")
+      .once("value", snapshot => {
+        if (snapshot.val()) {
+          console.log(snapshot.val())
+          firebase
+            .database()
+            .ref(this.userName)
+            .set({
+              wishlist: snapshot.val(),
+            })
+        }
+      })*/
   }
 
   componentWillUnmount() {
     //window.removeEventListener("event",this.handleEvent);
     firebase
       .database()
-      .ref("/wishlist/")
+      .ref(this.userName + "/wishlist/")
       .off()
   }
 
@@ -91,7 +110,7 @@ class WishList extends React.Component {
     //console.log("test fb")
     firebase
       .database()
-      .ref("/wishlist/" + ts)
+      .ref(this.userName + "/wishlist/" + ts)
       .set({
         name: this.refUserInput.value,
         comment: "",
@@ -103,14 +122,14 @@ class WishList extends React.Component {
   deteteFromWishList(id) {
     firebase
       .database()
-      .ref("/wishlist/" + id)
+      .ref(this.userName + "/wishlist/" + id)
       .set({})
   }
 
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
-    const { propMounted, propDefaultCardName } = this.props
+    const { propMounted, propDefaultCardName, propUserName } = this.props
     const classes = styles
 
     return (

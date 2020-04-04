@@ -1,6 +1,7 @@
 //import firebase from "firebase"
 import firebase from "firebase/app"
 import "firebase/database"
+import "firebase/auth"
 
 var firebaseConfig = {
   apiKey: process.env.GATSBY_fb_apiKey,
@@ -16,7 +17,6 @@ var firebaseConfig = {
 const isWindow = typeof window !== "undefined" && window
 
 if (isWindow) {
-  console.log(firebaseConfig)
   firebase.initializeApp(firebaseConfig)
 }
 

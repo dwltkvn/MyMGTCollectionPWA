@@ -17,6 +17,7 @@ class MKMFetchComponent extends React.Component {
   constructor(props) {
     super(props)
     // this.handeEvent = this.handleEvent.bind(this);
+
     this.state = {
       stateMounted: false,
       stateCurrentFetcher: 0,
@@ -34,7 +35,7 @@ class MKMFetchComponent extends React.Component {
   render() {
     //const {classes} = this.props;
     //const {myState} = this.state;
-    const { propMounted } = this.props
+    const { propMounted, propUserName } = this.props
     const classes = styles
 
     return (
@@ -60,10 +61,16 @@ class MKMFetchComponent extends React.Component {
           </ButtonGroup>
 
           {this.state.stateCurrentFetcher === 0 && (
-            <MKMFetchSeller propMounted={this.state.stateMounted} />
+            <MKMFetchSeller
+              propMounted={this.state.stateMounted}
+              propUserName={propUserName}
+            />
           )}
           {this.state.stateCurrentFetcher === 1 && (
-            <MKMFetchCards propMounted={this.state.stateMounted} />
+            <MKMFetchCards
+              propMounted={this.state.stateMounted}
+              propUserName={propUserName}
+            />
           )}
         </>
       </Fade>

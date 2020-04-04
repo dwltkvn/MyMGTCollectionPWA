@@ -10,7 +10,9 @@ import AddIcon from "@material-ui/icons/Add"
 
 import CollectionSearch from "../components/collectionSearch"
 import WishList from "../components/wishlist"
-import MkmFetcher from "../components/mkmFetchComponent"
+import MkmFetcherComponent from "../components/mkmFetchComponent"
+import LoginComponent from "../components/loginComponent"
+import firebase from "../components/firebase"
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -20,6 +22,7 @@ class IndexPage extends React.Component {
     this.handleAppInstallation = this.handleAppInstallation.bind(this)
     this.checkForUpdate = this.checkForUpdate.bind(this)
     this.goToWishList = this.goToWishList.bind(this)
+    this.loginUser = this.loginUser.bind(this)
     this.data = props.data
     this.deferredPrompt = null
     this.refLayout = null
@@ -29,6 +32,8 @@ class IndexPage extends React.Component {
       stateUpdateAvailable: false,
       stateCurrentPage: 0,
       stateDefaultWishCardName: undefined,
+      stateIsAuthed: false,
+      stateUserName: "",
     }
   }
 
@@ -38,7 +43,29 @@ class IndexPage extends React.Component {
       "beforeinstallprompt",
       this.handleBeforeInstallPrompt
     )
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        /*var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;*/
+        // ...
+        this.setState({ stateIsAuthed: true })
+        this.setState({ stateUserName: user.uid })
+      } else {
+        // User is signed out.
+        // ...
+        this.setState({ stateIsAuthed: false })
+      }
+    })
+
     this.checkForUpdate()
+
     //console.log(this.data.allDataJson.nodes[0].lists.Lands[0])
   }
 
@@ -75,8 +102,19 @@ class IndexPage extends React.Component {
   }
 
   goToWishList(data) {
-    console.log(data)
     this.setState({ stateCurrentPage: 1, stateDefaultWishCardName: data })
+  }
+
+  loginUser(login, pw) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(login, pw)
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code
+        var errorMessage = error.message
+        // ...
+      })
   }
 
   render() {
@@ -89,6 +127,7 @@ class IndexPage extends React.Component {
         cbPageChanged={v =>
           this.setState({ stateCurrentPage: v, stateDefaultWishCardName: "" })
         }
+        cbLogOut={() => firebase.auth().signOut()}
       >
         <SEO title="Search" />
 
@@ -103,21 +142,32 @@ class IndexPage extends React.Component {
           message="Update Available: Plz reload"
         />
 
-        {this.state.stateCurrentPage === 0 && (
+        {this.state.stateIsAuthed === false && (
+          <LoginComponent
+            propMounted={this.state.stateMounted}
+            cbLoggin={this.loginUser}
+          />
+        )}
+
+        {this.state.stateIsAuthed && this.state.stateCurrentPage === 0 && (
           <CollectionSearch
             propMounted={this.state.stateMounted}
             data={this.data}
             cbGoToWishList={this.goToWishList}
           />
         )}
-        {this.state.stateCurrentPage === 1 && (
+        {this.state.stateIsAuthed && this.state.stateCurrentPage === 1 && (
           <WishList
             propMounted={this.state.stateMounted}
             propDefaultCardName={this.state.stateDefaultWishCardName}
+            propUserName={this.state.stateUserName}
           />
         )}
-        {this.state.stateCurrentPage === 2 && (
-          <MkmFetcher propMounted={this.state.stateMounted} />
+        {this.state.stateIsAuthed && this.state.stateCurrentPage === 2 && (
+          <MkmFetcherComponent
+            propMounted={this.state.stateMounted}
+            propUserName={this.state.stateUserName}
+          />
         )}
         {this.state.stateDisplayInstallBtn ? (
           <IconButton

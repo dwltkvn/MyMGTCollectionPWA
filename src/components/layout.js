@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography"
 import Header from "./header"
 import "./layout.css"
 
-const Layout = ({ children, cbPageChanged }) => {
+const Layout = ({ children, cbPageChanged, cbLogOut }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -39,6 +39,10 @@ const Layout = ({ children, cbPageChanged }) => {
       <Header
         siteTitle={data.site.siteMetadata.title}
         cbTabChanged={(e, v) => {
+          if (v === 3) {
+            cbLogOut()
+            return
+          }
           cbPageChanged(v)
           setTab(v)
         }}
