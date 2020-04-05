@@ -52,17 +52,26 @@ const lambda = async (event, context) => {
     //console.log(i + " : " + q + " --- ")
   }) // end each()
   //console.log(retObject);
+
+  let infos = []
+  $("#info > div > dl > dd").each(function(i, elem) {
+    let $txt = $(this).text()
+    infos.push($txt)
+  })
+
   const stringified = JSON.stringify({
     card: card,
     seller: seller,
     price: price,
     raw: rawstr,
+    avgPrice: infos[infos.length - 1].replace(",", ".").slice(0, -2),
+    lowerPrice: infos[infos.length - 2].replace(",", ".").slice(0, -2),
   })
   return { statusCode: 200, body: stringified }
 }
 
-lambda({
+/*lambda({
   queryStringParameters: { card: "Korvold-Fae-Cursed-King" },
-}).then(data => console.log(data))
+}).then(data => console.log(data))*/
 
 exports.handler = lambda

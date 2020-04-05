@@ -28,7 +28,15 @@ class MKMFetcherCard extends MkmFetcher {
     fetch("./.netlify/functions/mkmcards?lang=en&card=" + data).then(response =>
       response.json().then(json => {
         this.setState({
-          stateResult: json.seller + " : " + json.price,
+          stateResult:
+            json.seller +
+            ":" +
+            json.price +
+            "(" +
+            json.lowerPrice +
+            "|" +
+            json.avgPrice +
+            ")",
           stateFetchRunning: false,
         })
         let d = this.state.stateDataList[data]
