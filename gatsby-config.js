@@ -35,7 +35,12 @@ module.exports = {
         icon: `src/images/dimir-icon.png`, // This path is relative to the root of the site.
       },
     },
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        appendScript: require.resolve(`./src/my-sw.js`),
+      },
+    },
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
