@@ -202,122 +202,121 @@ export const query = graphql`
       totalCount
       nodes {
         lists {
-          REPLACE( REPLACE( REPLACE( REPLACE(REPLACE(name,".",""),"-","") , " ","" ), "#",""), "+","")
-UncoCommon
-Rares
-Lands
-Zendikar
-Worldwake
-WaroftheSpark
-Torment
-Theros
-ShardofAlara
-Shadowmoor
-Scrouge
-ScarsofMirrodin
-Planeshift
-Onslaught
-Odyssey
-NewPhyrexia
-Nemesis
-MirrodinBesiged
-Mirrodin
-MercadianMasques
-Judgement
-Invasion
-Innistrad
-GuildsofRavnica
-Eventide
-Darksteel
-Conflux
-Commander2018
-Apocalypse
-Lorwyn
-Legions
-DarkAscension
-Scanning
-AchatCardMarket1
-Urza
-CoreSet
-OldiesSet
-RavnicaAllegiances
-PlanarChaos
-Morningtide
-AchatLesContreesDuJeu1
-AchatLesContreesDuJeu2
-AchatCardMarket3
-AchatCardMarket4
-AchatLesContreesDuJeu3
-AchatCardMarket5
-AchatOversizedCommander2013
-AchatOversizedCommander2014
-AchatLaCommunauteeDuJeu1
-Commander2019Faceless
-Commander2019Mystik
-Commander2019Merciless
-AchatCardMarket6
-AchatCadeauAndy1Morph
-Gatecrash
-Guildpact
-JourneyintoNix
-Profecy
-RavnicaCityofGuilds
-RaresWhite
-RaresBlue
-RaresBlack
-RaresRed
-RaresGreen
-RaresColorless
-RaresMulti
-AchatCardMarket7
-ThroneofEldraine
-AchatLesContreesDuJeu4
-AchatLesContreesDuJeu5
-AchatCardMarket9
-AchatMagicBazarBoosters
-AchatBrawlWildBounty
-AchatBrawlFaerieSchemes
-AchatCadeauAndyBattleForZendikar
-AchatCardMarket10
-AchatCardMarket11
-AchatCardMarket12
-AchatCardMarket13
-AchatCardMarket14
-Battlebond
-BattleForZendikar
-AchatCardMarket15
-AchatCardMarket16
-AchatCardMarket17
-AchatCardMarket18
-AchatCardMarket19
-AchatCardMarket20
-AchatCardMarket21
-AchatCadeauCec1Noel2019
-AchatCadeauAndy2Noel2019
-Scanning2
-AchatCardMarket22
-AchatCardMarket23
-TherosBeyondDeath
-AchatCardMarket24
-AchatCardMarket25
-AchatCardMarket26
-AchatCardMarket27
-AchatCardMarket28
-AchatCardMarket29
-AchatCardMarket30
-AchatCardMarket31
-AchatCardMarket32
-AchatCardMarket33
-AchatCadeauCec2Anniv2020
-AchatCardMarket34
-AchatCardMarket35
-AchatCardMarket36
-AchatCardMarket37
-AchatCadeauAndy3Anniv2020
-AchatCardMarket38
-Commander2020Wisdom
-Commander2020Swarm
-Commander2020Evolution
+          UncoCommon
+          Rares
+          Lands
+          Zendikar
+          Worldwake
+          WaroftheSpark
+          Torment
+          Theros
+          ShardofAlara
+          Shadowmoor
+          Scrouge
+          ScarsofMirrodin
+          Planeshift
+          Onslaught
+          Odyssey
+          NewPhyrexia
+          Nemesis
+          MirrodinBesiged
+          Mirrodin
+          MercadianMasques
+          Judgement
+          Invasion
+          Innistrad
+          GuildsofRavnica
+          Eventide
+          Darksteel
+          Conflux
+          Commander2018
+          Apocalypse
+          Lorwyn
+          Legions
+          DarkAscension
+          Scanning
+          AchatCardMarket1
+          Urza
+          CoreSet
+          OldiesSet
+          RavnicaAllegiances
+          PlanarChaos
+          Morningtide
+          AchatLesContreesDuJeu1
+          AchatLesContreesDuJeu2
+          AchatCardMarket3
+          AchatCardMarket4
+          AchatLesContreesDuJeu3
+          AchatCardMarket5
+          AchatOversizedCommander2013
+          AchatOversizedCommander2014
+          AchatLaCommunauteeDuJeu1
+          Commander2019Faceless
+          Commander2019Mystik
+          Commander2019Merciless
+          AchatCardMarket6
+          AchatCadeauAndy1Morph
+          Gatecrash
+          Guildpact
+          JourneyintoNix
+          Profecy
+          RavnicaCityofGuilds
+          RaresWhite
+          RaresBlue
+          RaresBlack
+          RaresRed
+          RaresGreen
+          RaresColorless
+          RaresMulti
+          AchatCardMarket7
+          ThroneofEldraine
+          AchatLesContreesDuJeu4
+          AchatLesContreesDuJeu5
+          AchatCardMarket9
+          AchatMagicBazarBoosters
+          AchatBrawlWildBounty
+          AchatBrawlFaerieSchemes
+          AchatCadeauAndyBattleForZendikar
+          AchatCardMarket10
+          AchatCardMarket11
+          AchatCardMarket12
+          AchatCardMarket13
+          AchatCardMarket14
+          Battlebond
+          BattleForZendikar
+          AchatCardMarket15
+          AchatCardMarket16
+          AchatCardMarket17
+          AchatCardMarket18
+          AchatCardMarket19
+          AchatCardMarket20
+          AchatCardMarket21
+          AchatCadeauCec1Noel2019
+          AchatCadeauAndy2Noel2019
+          Scanning2
+          AchatCardMarket22
+          AchatCardMarket23
+          TherosBeyondDeath
+          AchatCardMarket24
+          AchatCardMarket25
+          AchatCardMarket26
+          AchatCardMarket27
+          AchatCardMarket28
+          AchatCardMarket29
+          AchatCardMarket30
+          AchatCardMarket31
+          AchatCardMarket32
+          AchatCardMarket33
+          AchatCadeauCec2Anniv2020
+          AchatCardMarket34
+          AchatCardMarket35
+          AchatCardMarket36
+          AchatCardMarket37
+          AchatCadeauAndy3Anniv2020
+          AchatCardMarket38
+          Commander2020Wisdom
+          Commander2020Swarm
+          Commander2020Evolution
         }
       }
     }
