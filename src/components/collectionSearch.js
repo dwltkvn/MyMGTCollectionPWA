@@ -90,6 +90,9 @@ class collectionSearch extends React.Component {
   searchCard(data) {
     const v = this.refUserInput.value
 
+    let searchList = v.split("\n")
+    searchList = searchList.map(card => card.toLowerCase())
+
     this.setState({ stateSearching: 2 })
     let result = []
     //console.log(v)
@@ -97,7 +100,8 @@ class collectionSearch extends React.Component {
     //console.log(keys)
     keys.forEach(key => {
       data.allDataJson.nodes[0].lists[key].forEach(card => {
-        if (card.toLowerCase() === v.toLowerCase()) {
+        //if (card.toLowerCase() === v.toLowerCase()) {
+        if (searchList.includes(card.toLowerCase())) {
           //console.log(key + " " + card)
           let r = { cardname: card, listname: key }
           result.push(r)
@@ -141,6 +145,8 @@ class collectionSearch extends React.Component {
                 id="standard-basic"
                 label="Card Name"
                 inputRef={el => (this.refUserInput = el)}
+                multiline
+                rowsMax={2}
               />
 
               <IconButton

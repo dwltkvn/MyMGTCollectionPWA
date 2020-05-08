@@ -127,6 +127,7 @@ class MKMFetcher extends React.Component {
   fetchData(idx) {}
 
   addData() {
+    if (this.refInput.value === "" || this.refInput.value === undefined) return
     const ts = Date.now()
     firebase
       .database()
