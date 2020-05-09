@@ -67,7 +67,7 @@ class IndexPage extends React.Component {
     this.checkForUpdate()
 
     console.log("Working?")
-    if (window.navigator && window.navigator.serviceWorker) {
+    /*if (window.navigator && window.navigator.serviceWorker) {
       console.log("Worker?")
       window.navigator.serviceWorker.addEventListener("message", ev =>
         console.log("Received message:", ev.data)
@@ -76,7 +76,7 @@ class IndexPage extends React.Component {
       window.navigator.serviceWorker.ready.then(reg =>
         reg.active.postMessage({ method: "ping" })
       )
-    }
+    }*/
     //console.log(this.data.allDataJson.nodes[0].lists.Lands[0])
   }
 
@@ -313,6 +313,10 @@ export const query = graphql`
           AchatCardMarket36
           AchatCardMarket37
           AchatCadeauAndy3Anniv2020
+          AchatCardMarket38
+          Commander2020Wisdom
+          Commander2020Swarm
+          Commander2020Evolution
         }
       }
     }
