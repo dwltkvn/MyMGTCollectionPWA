@@ -108,12 +108,17 @@ class WishList extends React.Component {
   addToWishList() {
     const ts = Date.now()
     //console.log("test fb")
+    const v = this.refUserInput.value.split("@")
+    const cardName = v[0]
+    let comm = "nop"
+    if (v.length > 1) comm = v[1]
+
     firebase
       .database()
       .ref(this.userName + "/wishlist/" + ts)
       .set({
-        name: this.refUserInput.value,
-        comment: "",
+        name: cardName,
+        comment: comm,
       })
 
     this.refUserInput.value = ""
@@ -173,7 +178,7 @@ class WishList extends React.Component {
                       key={e.id}
                       onClick={() => this.deteteFromWishList(e.id)}
                     >
-                      <DeleteIcon key={i} />
+                      <DeleteIcon key={e.id} />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>

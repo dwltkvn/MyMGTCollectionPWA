@@ -127,6 +127,7 @@ class MKMFetcher extends React.Component {
   fetchData(idx) {}
 
   addData() {
+    if (this.refInput.value === "" || this.refInput.value === undefined) return
     const ts = Date.now()
     firebase
       .database()
@@ -239,18 +240,17 @@ class MKMFetcher extends React.Component {
                   onMouseLeave={() => this.handleButtonRelease(e)}
                   onTouchStart={() => this.handleButtonPress(e)}
                   onTouchEnd={() => this.handleButtonRelease(e)}
+                  dense={true}
                 >
                   <ListItemText primary={e} secondary={secondaryTxt} key={i} />
-                  <ListItemSecondaryAction key={i}>
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      key={i}
-                      onClick={() => this.deleteData(e)}
-                    >
-                      <DeleteIcon key={i} />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    key={i}
+                    onClick={() => this.deleteData(e)}
+                  >
+                    <DeleteIcon key={i} />
+                  </IconButton>
                 </ListItem>
               )
             })}
