@@ -37,9 +37,9 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-offline`,
-      options: {
+      /*options: {
         appendScript: require.resolve(`./src/my-sw.js`),
-      },
+      },*/
     },
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
