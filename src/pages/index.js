@@ -202,7 +202,7 @@ export const query = graphql`
       totalCount
       nodes {
         lists {
-          UncoCommon
+UncoCommon
 Rares
 Lands
 Zendikar
@@ -323,6 +323,13 @@ AchatCardMarket40
 AchatCardMarket41
 Ikoria
 AchatCardMarket42
+AchatCardMarket43
+AchatCardMarket44
+MysteryBoosters
+AchatCardMarket45
+AchatCardMarket46
+CoreSet2021
+AchatCardMarket47
         }
       }
     }
