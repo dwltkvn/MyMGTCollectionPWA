@@ -330,6 +330,13 @@ AchatCardMarket45
 AchatCardMarket46
 CoreSet2021
 AchatCardMarket47
+AchatCardMarket48
+AchatCardMarket49
+CoreSet2021KDO_Cec
+AchatCardMarket50
+AchatCardMarket51
+AchatCardMarket52
+AchatCardMarket53
         }
       }
     }
