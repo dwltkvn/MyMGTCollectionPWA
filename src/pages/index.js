@@ -355,6 +355,17 @@ AchatCardMarket61
 AchatCardMarket62
 AchatCardMarket63
 MysteryBoosters3
+MysteryBoosters4
+AchatCardMarket64
+AchatCardMarket65
+AchatCardMarket66
+Gift2Romain
+TradeList
+AchatCadeauCec6
+MysteryBoosters5
+TradeList2
+AchatCadeauCec7
+AchatCardMarket67
         }
       }
     }
