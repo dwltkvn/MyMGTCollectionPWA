@@ -366,6 +366,16 @@ MysteryBoosters5
 TradeList2
 AchatCadeauCec7
 AchatCardMarket67
+AchatCardMarket68
+AchatCardMarket69
+Gift2Andy
+ZendikarRising
+AchatCardMarket70
+ZendikarRisingBox
+AchatCadeauCec8
+ZendikarRisingBundle
+AchatCardMarket71
+AchatCardMarket72
         }
       }
     }
