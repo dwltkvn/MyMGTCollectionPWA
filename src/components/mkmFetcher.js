@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 
 import Input from "@material-ui/core/Input"
 import TextField from "@material-ui/core/TextField"
@@ -60,6 +60,8 @@ class MKMFetcher extends React.Component {
     this.currentFetchIdx = -1
     this.fetchingAllData = false
     this.userName = props.propUserName
+    this.myRefs = []
+    this.listRef = undefined
     this.state = {
       stateMounted: false,
       stateResult: "1",
@@ -83,6 +85,7 @@ class MKMFetcher extends React.Component {
         }
         this.setState({ stateDataList: w })
       })
+    //this.listRef.scrollTo(0, 138)
   }
 
   componentWillUnmount() {
@@ -115,9 +118,10 @@ class MKMFetcher extends React.Component {
     if (this.fetchingAllData) {
       const keys = Object.keys(this.state.stateDataList)
       this.currentFetchIdx++
-      if (this.currentFetchIdx < keys.length)
+      if (this.currentFetchIdx < keys.length) {
         this.fetchData(keys[this.currentFetchIdx])
-      else {
+        this.listRef.scrollTo(0, 65 * this.currentFetchIdx)
+      } else {
         this.currentFetchIdx = -1
         this.fetchingAllData = false
       }
@@ -158,6 +162,8 @@ class MKMFetcher extends React.Component {
       .ref("/" + this.userName + "/" + this.localStorage + "/" + idx)
       .set({})
   }
+
+  //scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
   render() {
     //const {classes} = this.props;
@@ -211,7 +217,11 @@ class MKMFetcher extends React.Component {
               />
             </div>
           </form>
-          <List dense={true} style={classes.cardList}>
+          <List
+            dense={true}
+            style={classes.cardList}
+            ref={(elem) => (this.listRef = elem)}
+          >
             {Object.keys(this.state.stateDataList).map((e, i) => {
               const nowDate = Date.now()
               const entries = Object.entries(this.state.stateDataList[e])
