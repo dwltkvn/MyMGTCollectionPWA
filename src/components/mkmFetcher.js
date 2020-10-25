@@ -75,7 +75,7 @@ class MKMFetcher extends React.Component {
     firebase
       .database()
       .ref("/" + this.userName + "/" + this.localStorage + "/")
-      .on("value", snapshot => {
+      .on("value", (snapshot) => {
         let w = {}
         if (snapshot.val()) {
           const data = snapshot.val()
@@ -173,7 +173,7 @@ class MKMFetcher extends React.Component {
               <Input
                 id="standard-basic"
                 label="Input2"
-                inputRef={el => (this.refInput = el)}
+                inputRef={(el) => (this.refInput = el)}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -229,7 +229,7 @@ class MKMFetcher extends React.Component {
 
               return (
                 <ListItem
-                  key={i}
+                  key={`item-${i}`}
                   button
                   onClick={() => {
                     this.fetchingAllData = false
@@ -246,10 +246,10 @@ class MKMFetcher extends React.Component {
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    key={i}
+                    key={`ibtn-${i}`}
                     onClick={() => this.deleteData(e)}
                   >
-                    <DeleteIcon key={i} />
+                    <DeleteIcon key={`idel-${i}`} />
                   </IconButton>
                 </ListItem>
               )
