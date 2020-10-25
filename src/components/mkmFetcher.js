@@ -60,7 +60,7 @@ class MKMFetcher extends React.Component {
     this.currentFetchIdx = -1
     this.fetchingAllData = false
     this.userName = props.propUserName
-    this.myRefs = []
+    this.listItemRefs = []
     this.listRef = undefined
     this.state = {
       stateMounted: false,
@@ -115,12 +115,18 @@ class MKMFetcher extends React.Component {
   longPress(data) {}
 
   fetchAllData() {
+    /*console.log(this.listItemRefs[0].offsetTop)
+    console.log(this.listItemRefs[1].offsetTop)
+    return*/
     if (this.fetchingAllData) {
       const keys = Object.keys(this.state.stateDataList)
       this.currentFetchIdx++
       if (this.currentFetchIdx < keys.length) {
         this.fetchData(keys[this.currentFetchIdx])
-        this.listRef.scrollTo(0, 65 * this.currentFetchIdx)
+        let offsetIdx = this.currentFetchIdx - 2
+        offsetIdx = offsetIdx < 0 ? 0 : offsetIdx
+        let offset = this.listItemRefs[offsetIdx].offsetTop
+        this.listRef.scrollTo(0, offset)
       } else {
         this.currentFetchIdx = -1
         this.fetchingAllData = false
@@ -239,6 +245,9 @@ class MKMFetcher extends React.Component {
 
               return (
                 <ListItem
+                  ref={(elem) => {
+                    this.listItemRefs[i] = elem
+                  }}
                   key={`item-${i}`}
                   button
                   onClick={() => {
