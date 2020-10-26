@@ -202,7 +202,6 @@ export const query = graphql`
       totalCount
       nodes {
         lists {
-REPLACE( REPLACE( REPLACE( REPLACE(REPLACE(name,".",""),"-","") , " ","" ), "#",""), "+","")
 UncoCommon
 Rares
 Lands
