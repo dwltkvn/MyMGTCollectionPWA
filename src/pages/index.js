@@ -202,6 +202,7 @@ export const query = graphql`
       totalCount
       nodes {
         lists {
+REPLACE( REPLACE( REPLACE( REPLACE(REPLACE(name,".",""),"-","") , " ","" ), "#",""), "+","")
 UncoCommon
 Rares
 Lands
@@ -376,6 +377,13 @@ AchatCadeauCec8
 ZendikarRisingBundle
 AchatCardMarket71
 AchatCardMarket72
+AchatCardMarket73
+AchatCardMarket74
+AchatCardMarket75
+ZendikarRisingBoosters
+AchatCardMarket76
+AchatCardMarket77
+MysteryBoosters6
         }
       }
     }
