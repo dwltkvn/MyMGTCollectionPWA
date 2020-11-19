@@ -383,6 +383,12 @@ ZendikarRisingBoosters
 AchatCardMarket76
 AchatCardMarket77
 MysteryBoosters6
+MysteryBoosters7
+Jumpstart
+AchatCardMarket78
+AchatCardMarket79
+AchatCardMarket80
+CommanderLegendsBox
         }
       }
     }
