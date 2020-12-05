@@ -389,6 +389,11 @@ AchatCardMarket78
 AchatCardMarket79
 AchatCardMarket80
 CommanderLegendsBox
+AchatCardMarket81
+AchatCardMarket82
+AchatCardMarket83
+AchatCardMarket84
+AchatCardMarket85
         }
       }
     }
