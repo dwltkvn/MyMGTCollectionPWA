@@ -406,6 +406,9 @@ TherosRus
 AchatCadeauCec8
 AchatCadeauAndy4Noel2020
 CommanderLegendsBoosters
+AchatCardMarket91
+AchatCadeauCec9
+CommanderLegendsBoosters2
         }
       }
     }
