@@ -202,6 +202,7 @@ export const query = graphql`
       totalCount
       nodes {
         lists {
+REPLACE( REPLACE( REPLACE( REPLACE(REPLACE(name,".",""),"-","") , " ","" ), "#",""), "+","")
 UncoCommon
 Rares
 Lands
@@ -422,6 +423,20 @@ AchatCadeauAndy5Anniv2021
 ThroneofEldraineBoosters
 AchatCardMarket96
 AchatCadeauCec10Anniv2021
+TimeSpiralRemasteredAP
+AchatCardMarket97
+AchatCardMarket98
+StrixhavenAP
+Commander2021Witherbloom
+Commander2021Quandrix
+Commander2021Lorehold
+StrixhavenBox
+StrixhavenBundle
+AchatCardMarket99
+AchatCardMarket101
+AchatCardMarket102
+AchatCardMarket103
+AchatCardMarket100
         }
       }
     }
