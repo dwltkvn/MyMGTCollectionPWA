@@ -442,6 +442,17 @@ StrixhavenJap
 AchatCadeauCec10StrixJap
 AchatCardMarket106
 AchatCardMarket107
+ModernHorizon2AP
+BlackIsMagic
+AchatCardMarket108
+AchatCardMarket109
+AchatCardMarket110
+AchatCardMarket111
+ModernHorizon2AP2
+Test
+AchatCadeauCec11MH2Set
+AchatCardMarket112
+ForgottenRealmsAP
         }
       }
     }
