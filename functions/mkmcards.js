@@ -54,18 +54,14 @@ const lambda = async (event, context) => {
   //console.log(retObject);
 
   let infos = []
-  $("#info > div > dl > dd").each(function(i, elem) {
-    let $txt = $(this).text()
-    infos.push($txt)
-  })
 
   const stringified = JSON.stringify({
     card: card,
     seller: seller,
     price: price,
     raw: rawstr,
-    avgPrice: infos[infos.length - 1].replace(",", ".").slice(0, -2),
-    lowerPrice: infos[infos.length - 2].replace(",", ".").slice(0, -2),
+    avgPrice: 0,
+    lowerPrice: 0,
   })
   return { statusCode: 200, body: stringified }
 }
